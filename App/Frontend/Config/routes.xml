@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<routes>
+  <route url="/framework-php-oc/Web/" module="News" action="index" ></route>
+  <route url="/framework-php-oc/Web/news-([0-9]+)\.html" module="News" action="show" vars="id"></route>
+  <route url="/framework-php-oc/Web/commenter-([0-9]+)\.html" module="News" action="insertComment" vars="news" ></route>
+</routes>
