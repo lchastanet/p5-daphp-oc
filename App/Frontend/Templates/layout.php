@@ -19,10 +19,10 @@
       
       <nav>
         <ul>
-          <li><a href="/framework-php-oc/Web/">Accueil</a></li>
+          <li><a href="/p5-daphp-oc/Web/">Accueil</a></li>
           <?php if ($user->isAuthenticated()) { ?>
-          <li><a href="/framework-php-oc/Web/admin/">Admin</a></li>
-          <li><a href="/framework-php-oc/Web/admin/news-insert.html">Ajouter une news</a></li>
+          <li><a href="/p5-daphp-oc/Web/admin/">Admin</a></li>
+          <li><a href="/p5-daphp-oc/Web/admin/news-insert.html">Ajouter une news</a></li>
           <?php } ?>
         </ul>
       </nav>

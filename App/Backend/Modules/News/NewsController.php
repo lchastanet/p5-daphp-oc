@@ -62,7 +62,7 @@ class NewsController extends BackController
     if ($formHandler->process())
     {
       $this->app->user()->setFlash('Le commentaire a bien été modifié');
-      $this->app->httpResponse()->redirect('/framework-php-oc/Web/admin/');
+      $this->app->httpResponse()->redirect('/p5-daphp-oc/Web/admin/');
     }
 
     $this->page->addVar('form', $form->createView());
@@ -106,7 +106,7 @@ class NewsController extends BackController
     if ($formHandler->process())
     {
       $this->app->user()->setFlash($news->isNew() ? 'La news a bien été ajoutée !' : 'La news a bien été modifiée !');
-      $this->app->httpResponse()->redirect('/framework-php-oc/Web/admin/');
+      $this->app->httpResponse()->redirect('/p5-daphp-oc/Web/admin/');
     }
 
     $this->page->addVar('form', $form->createView());
