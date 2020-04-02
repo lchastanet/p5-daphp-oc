@@ -1,0 +1,17 @@
+<nav>
+    <ul>
+        <li><a href="{{ basePath }}/">Accueil</a></li>
+        <li><a href="{{ basePath }}/listNews">Articles</a></li>
+        {% if currentSession.auth %}
+            {% if currentSession.role == 'admin' %}
+                <li><a href="{{ basePath }}/admin">Administration</a></li>
+                <li><a href="{{ basePath }}/admin/listNews">Gestion des articles</a></li>
+                <li><a href="{{ basePath }}/admin/listComments">Gestion des commentaires</a></li>
+            {% endif %}
+            <li><a href="{{ basePath }}/logout">Déconnexion</a></li>
+        {% else %}
+            <li><a href="{{ basePath }}/signUp">S'inscrire</a></li>
+            <li><a href="{{ basePath }}/signIn">Se connecter</a></li>
+        {% endif %}
+    </ul>
+</nav>
