@@ -1,0 +1,18 @@
+---
+# basePath est utilisé si le projet n'est pas à la racine du serveur
+basePath: #/p5-daphp-oc
+
+# ici sont stockées les informations nécéssaires à l'envoi du mail 
+mailer:
+  smtpServerAdresse: #smtp.exemple.com
+  smtpServerPort: #587
+  mailAdresse: #user@domain.ext
+  mailPassword: #azerty
+
+# ici sont stockée les information de connexion à la base de donnée
+dataBase:
+  hostName: #localhost
+  dbName: #frameworkOCauth
+  login: #root
+  password: #root
+...
