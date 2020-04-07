@@ -10,7 +10,7 @@ Then run
 composer install
 ```
 
-To run app you need to put correct informations in Config/config-sample.yml 
+To run app you need to put correct informations in **Config/config-sample.yml** file
 
 ```yaml
 # basePath est utilisé si le projet n'est pas à la racine du serveur
@@ -31,4 +31,4 @@ dataBase:
   password: #root
 ```
 
-file then rename **config-sample.yml** in **config.yml**
+ then rename **config-sample.yml** in **config.yml**
