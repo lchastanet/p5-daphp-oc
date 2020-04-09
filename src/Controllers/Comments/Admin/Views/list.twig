@@ -1,0 +1,17 @@
+{% extends "layout.twig" %}
+{% block content %}
+<h2>Commentaires à valider</h2>
+<table>
+  <tr><th>Auteur</th><th>Contenu</th><th>Date d'ajout</th><th>Action</th></tr>
+  {% for comment in unvalidatedComments %}
+  <tr><td>{{ comment.auteur }}</td><td>{{ comment.contenu }}</td><td>le {{ comment.date|date("d/m/Y à H\\hi") }}</td><td><a href="commentValidation/{{ comment.id }}">Valider</a> <a href="deleteComment/{{ comment.id }}">Supprimer</a></td></tr>
+  {% endfor %}
+</table>
+<h2>Commentaires validés</h2>
+<table>
+  <tr><th>Auteur</th><th>Contenu</th><th>Date d'ajout</th><th>Action</th></tr>
+  {% for comment in validatedComments %}
+    <tr><td>{{ comment.auteur }}</td><td>{{ comment.contenu }}</td><td>le {{ comment.date|date("d/m/Y à H\\hi") }}</td><td><a href="deleteComment/{{ comment.id }}">Supprimer</a></td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
