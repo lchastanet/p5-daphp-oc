@@ -1,0 +1,17 @@
+{% extends "layout.twig" %}
+{% block content %}
+  <p>Par <em>{{ news.auteur }}</em>, le {{ news.dateAjout|date("d/m/Y à H\\hi") }}</p>
+  <p>{{ news.contenu }}</p>
+
+  {% if news.dateAjout != news.dateModif %}
+    <p style="text-align: right;"><small><em>Modifiée le {{ news.dateModif|date("d/m/Y à H\\hi")}}</em></small></p>
+  {% endif %}
+
+  {% if currentSession.auth == true %}
+    {% include 'insertComment.twig' %}
+  {% else %}
+    <p>Vous devez être connecté pour laisser un commentaire.</p>
+  {% endif %}
+  
+  {% include 'listComments.twig' %}
+{% endblock %}
