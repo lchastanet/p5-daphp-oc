@@ -10,7 +10,7 @@ class UsersManagerPDO extends UsersManager
         $q->bindValue(':email', (string) $email, \PDO::PARAM_STR);
         $q->execute();
 
-        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Entity\User');
+        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\Users\User');
 
         if ($user = $q->fetch()) {
             return $user;
