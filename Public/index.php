@@ -37,5 +37,5 @@ if ($match) {
     }
 } else {
     $controller = new App\Controllers\PublicController();
-    $controller->execute404();
+    $controller->executeError(404);
 }

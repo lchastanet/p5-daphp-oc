@@ -15,13 +15,13 @@ abstract class Controller
         }
     }
 
-    public function execute404()
+    public function executeError($errorCode)
     {
         $renderer = new Renderer(
-            '404.twig',
+            $errorCode . '.twig',
             '../Errors',
-            ['title' => '404'],
-            404
+            ['title' => $errorCode],
+            $errorCode
         );
         $renderer->render();
         exit;
@@ -31,7 +31,7 @@ abstract class Controller
     {
         $config = new Config();
 
-        header('Location: '.$config->getBasePath().$destination);
+        header('Location: ' . $config->getBasePath() . $destination);
         exit;
     }
 }

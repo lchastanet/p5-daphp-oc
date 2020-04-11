@@ -20,7 +20,7 @@ class NewsController extends Controller
         foreach ($listeNews as $news) {
             if (strlen($news->contenu()) > 200) {
                 $debut = substr($news->contenu(), 0, 200);
-                $debut = substr($debut, 0, strrpos($debut, ' ')).'...';
+                $debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
 
                 $news->setContenu($debut);
             }
@@ -38,7 +38,7 @@ class NewsController extends Controller
         $news = $this->manager->getUnique($id);
 
         if (empty($news)) {
-            $this->execute404();
+            $this->executeError(404);
         }
 
         $controller = new CommentsController();

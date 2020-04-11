@@ -50,7 +50,7 @@ class Renderer
         if (null === $this->httpCode) {
             http_response_code(200);
         } else {
-            http_response_code(404);
+            http_response_code($this->httpCode);
         }
 
         echo $res->render($this->datas);
