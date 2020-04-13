@@ -1,0 +1,18 @@
+{% extends "layout.twig" %}
+{% block content %}
+<form action="{{ basePath }}/signUp" method="post">
+  <label>Email :</label>
+  <input name="email" type="email">
+  <br/>
+  <label>Pseudo :</label>
+  <input name="login" type="text">
+  <br/>
+  <label>Mot de passe :</label>
+  <input name="password" type="password">
+  <br/>
+  <label> Confirmez votre mot de passe :</label>
+  <input name="passwordConfirmation" type="password">
+  <br/>
+  <input type="submit" value="S'inscrire" />
+</form>
+{% endblock %}

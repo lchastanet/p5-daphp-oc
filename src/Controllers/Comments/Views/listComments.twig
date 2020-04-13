@@ -1,0 +1,11 @@
+  {% if comments %}
+    <ul>
+        {% for comment in comments %}
+          <p>{{ comment.contenu|e }}</p>
+          <p style="text-align: right;"><small><em>Modifiée le {{ comment.date|date("d/m/Y à H\\hi")}}</em></small></p>
+          <p><strong>{{ comment.auteur }}</strong></p>
+        {% endfor %}
+    </ul>
+  {% else %}
+    <p>Aucun commentaire n'a encore été posté. Soyez le premier à en laisser un !</p>
+  {% endif %}

@@ -1,0 +1,15 @@
+{% extends "layout.twig" %}
+{% block content %}
+<form action="{{ basePath }}/signIn" method="post">
+  <label>Email :</label>
+  <input name="email" type="email">
+  <br/>
+  <label>Mot de passe :</label>
+  <input name="password" type="password">
+  <br/>
+  <input type="checkbox" id="staySigned" name="staySigned">
+  <label>Rester connecté</label>
+  <br/>
+  <input type="submit" value="Connexion" />
+</form>
+{% endblock %}

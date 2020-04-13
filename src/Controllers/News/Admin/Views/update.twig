@@ -1,0 +1,14 @@
+{% extends "layout.twig" %}
+{% block content %}
+  <form action="{{ basePath }}/admin/updateNews/{{ news.id }}" method="post">
+    <p>
+      <label for="titre">Titre</label>
+      <input id="titre" name="titre" type="text" placeholder="{{ news.titre }}">
+    </p>
+    <p>
+      <label for="contenu">Contenu</label>
+      <textarea id="contenu" name="contenu" placeholder="{{ news.contenu }}"></textarea>
+    </p>
+    <input type="submit" value="Modifier" />
+  </form>
+{% endblock %}

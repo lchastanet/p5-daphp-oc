@@ -1,0 +1,12 @@
+{% extends "layout.twig" %}
+{% block content %}
+<p style="text-align: center">Il y a actuellement {{ nombreNews }} news. En voici la liste :</p>
+<a href="{{ basePath }}/admin/addNews">Ajouter un article</a>
+<table>
+  <tr><th>Auteur</th><th>Titre</th><th>Date d'ajout</th><th>Dernière modification</th><th>Action</th></tr>
+  {% for news in listeNews %}
+
+  <tr><td>{{ news.auteur }}</td><td>{{ news.titre }}</td><td>le {{ news.dateAjout|date("d/m/Y à H\\hi") }}</td><td>{{ news.dateModif|date("d/m/Y à H\\hi") }}</td><td><a href="updateNews/{{ news.id }}">Modifier</a> <a href="deleteNews/{{ news.id }}">Supprimer</a></td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
