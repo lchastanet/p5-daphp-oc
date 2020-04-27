@@ -5,9 +5,11 @@ namespace App\Controllers\Users;
 use App\lib\Authenticator;
 use App\lib\Controller;
 use App\lib\Flash;
+use App\lib\Validators\PostedValuesValidator;
 use App\lib\Mailer;
 use App\lib\Renderer;
-use App\lib\Validator;
+use App\lib\Validators\EmailValidator;
+use App\lib\Validators\TwinsValidator;
 use App\Model\Users\User;
 
 class UsersController extends Controller
@@ -58,8 +60,8 @@ class UsersController extends Controller
     public function executeSignUp()
     {
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            $validator = new Validator();
-            $postedValues = $validator->checkPostedValues(['login', 'email', 'password', 'passwordValidation']);
+            $validator = new PostedValuesValidator('Formulaire incomplet, veuillez recommencer');
+            $postedValues = $validator->isValid(['login', 'email', 'password', 'passwordValidation']);
 
             if (null != $postedValues) {
                 $login = $postedValues['login'];
@@ -67,27 +69,38 @@ class UsersController extends Controller
                 $password = $postedValues['password'];
                 $passwordConfirmation = $postedValues['passwordConfirmation'];
             } else {
-                $flash = new Flash('error', 'Formulaire incomplet, veuillez recommencer');
+                $flash = new Flash('error', $validator->errorMessage());
                 $flash->setFlash();
 
                 $this->redirect('/signUp');
             }
 
             $user = new User([
+                'login' => $login,
                 'validated' => 0,
                 'role' => 2,
             ]);
 
-            if ($validator->checkString($login)) {
-                $user->setLogin($login);
-            }
+            $validator = new EmailValidator('Email incorrecte');
 
-            if ($validator->checkEmail($email)) {
+            if ($validator->isValid($email)) {
                 $user->setEmail($email);
+            } else {
+                $flash = new Flash('error', $validator->errorMessage());
+                $flash->setFlash();
+
+                $this->redirect('/signUp');
             }
 
-            if ($validator->checkString($password) && $validator->checkTwins($password, $passwordConfirmation)) {
+            $validator = new TwinsValidator('Les deux Emails ne correspondent pas');
+
+            if ($validator->isValid($password, $passwordConfirmation)) {
                 $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            } else {
+                $flash = new Flash('error', $validator->errorMessage());
+                $flash->setFlash();
+
+                $this->redirect('/signUp');
             }
 
             $user->setValidationToken(bin2hex(random_bytes(32)));
@@ -95,9 +108,12 @@ class UsersController extends Controller
             $this->manager->save($user);
 
             $mailer = new Mailer($user);
-            $mailer->sendMail();
+            if ($mailer->sendMail()) {
+                $flash = new Flash('success', 'Veuillez vérifier vos mails et cliquer sur le lien afin de finaliser votre inscription');
+            } else {
+                $flash = new Flash('success', 'Une erreur est survenue, veuillez contacter le webmaster');
+            }
 
-            $flash = new Flash('success', 'Veuillez vérifier vos mails et cliquer sur le lien afin de finaliser votre inscription');
             $flash->setFlash();
 
             $this->redirect('/');
