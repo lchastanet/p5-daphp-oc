@@ -31,6 +31,7 @@ class Authenticator
         if (isset($_SESSION['auth']) && true == $_SESSION['auth']) {
             $currentSession['auth'] = $_SESSION['auth'];
         }
+
         if (isset($_SESSION['login'])) {
             $currentSession['login'] = $_SESSION['login'];
         }
