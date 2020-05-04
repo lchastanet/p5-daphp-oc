@@ -9,7 +9,6 @@ use App\lib\Validators\PostedValuesValidator;
 use App\lib\Mailer;
 use App\lib\Renderer;
 use App\lib\Validators\EmailValidator;
-use App\lib\Validators\TwinsValidator;
 use App\Model\Users\User;
 
 class UsersController extends Controller
@@ -33,17 +32,17 @@ class UsersController extends Controller
                     if ($authenticator->checkCredentials($user, $password)) {
                         $this->redirect('/admin');
                     } else {
-                        $flash = new Flash('error', 'Identifiant ou mot de passe incorrecte');
+                        $flash = new Flash('danger', 'Identifiant ou mot de passe incorrecte');
                         $flash->setFlash();
                         $this->redirect('/signIn');
                     }
                 } else {
-                    $flash = new Flash('error', 'Veuillez verifier votre adresse email pour vous connecter');
+                    $flash = new Flash('danger', 'Veuillez verifier votre adresse email pour vous connecter');
                     $flash->setFlash();
                     $this->redirect('/signIn');
                 }
             } else {
-                $flash = new Flash('error', 'Veuillez vous enregistrer sur le site pour vous connecter');
+                $flash = new Flash('danger', 'Veuillez vous enregistrer sur le site pour vous connecter');
                 $flash->setFlash();
                 $this->redirect('/signUp');
             }
@@ -67,9 +66,9 @@ class UsersController extends Controller
                 $login = $postedValues['login'];
                 $email = $postedValues['email'];
                 $password = $postedValues['password'];
-                $passwordConfirmation = $postedValues['passwordConfirmation'];
+                $passwordConfirmation = $postedValues['passwordValidation'];
             } else {
-                $flash = new Flash('error', $validator->errorMessage());
+                $flash = new Flash('danger', $validator->errorMessage());
                 $flash->setFlash();
 
                 $this->redirect('/signUp');
@@ -86,18 +85,16 @@ class UsersController extends Controller
             if ($validator->isValid($email)) {
                 $user->setEmail($email);
             } else {
-                $flash = new Flash('error', $validator->errorMessage());
+                $flash = new Flash('danger', $validator->errorMessage());
                 $flash->setFlash();
 
                 $this->redirect('/signUp');
             }
 
-            $validator = new TwinsValidator('Les deux Emails ne correspondent pas');
-
-            if ($validator->isValid($password, $passwordConfirmation)) {
+            if ($password === $passwordConfirmation) {
                 $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
             } else {
-                $flash = new Flash('error', $validator->errorMessage());
+                $flash = new Flash('danger', $validator->errorMessage());
                 $flash->setFlash();
 
                 $this->redirect('/signUp');
@@ -111,12 +108,12 @@ class UsersController extends Controller
             if ($mailer->sendMail()) {
                 $flash = new Flash('success', 'Veuillez vérifier vos mails et cliquer sur le lien afin de finaliser votre inscription');
             } else {
-                $flash = new Flash('success', 'Une erreur est survenue, veuillez contacter le webmaster');
+                $flash = new Flash('danger', 'Une erreur est survenue, veuillez contacter le webmaster');
             }
 
             $flash->setFlash();
 
-            $this->redirect('/');
+            $this->redirect('/signIn');
         } else {
             $renderer = new Renderer(
                 'signUp.twig',

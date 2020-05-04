@@ -1,11 +1,25 @@
   {% if comments %}
-    <ul>
+    <div class="comments-area">
+        <h4>Commentaires</h4>
         {% for comment in comments %}
-          <p>{{ comment.contenu|e }}</p>
-          <p style="text-align: right;"><small><em>Modifiée le {{ comment.date|date("d/m/Y à H\\hi")}}</em></small></p>
-          <p><strong>{{ comment.auteur }}</strong></p>
+          
+                        <div class="comment-list">
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                        <img src="{{ basePath }}/Public/img/avatar.jpg" alt="">
+                                    </div>
+                                    <div class="desc">
+                                        <h5><a href="#">{{ comment.auteur }}</a></h5>
+                                        <p class="date">{{ comment.date|date("d/m/Y à H\\hi")}}</p>
+                                        <p class="comment">{{ comment.contenu|e }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
         {% endfor %}
-    </ul>
+        </div>
   {% else %}
     <p>Aucun commentaire n'a encore été posté. Soyez le premier à en laisser un !</p>
   {% endif %}

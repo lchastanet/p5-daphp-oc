@@ -1,17 +1,36 @@
 {% extends "layout.twig" %}
 {% block content %}
-  <p>Par <em>{{ news.auteur }}</em>, le {{ news.dateAjout|date("d/m/Y à H\\hi") }}</p>
-  <p>{{ news.contenu }}</p>
-
-  {% if news.dateAjout != news.dateModif %}
-    <p style="text-align: right;"><small><em>Modifiée le {{ news.dateModif|date("d/m/Y à H\\hi")}}</em></small></p>
-  {% endif %}
-
-  {% if currentSession.auth == true %}
-    {% include 'insertComment.twig' %}
-  {% else %}
-    <p>Vous devez être connecté pour laisser un commentaire.</p>
-  {% endif %}
-  
-  {% include 'listComments.twig' %}
+  <section class="blog_area single-post-area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 posts-list">
+                    <div class="single-post row">
+                        <div class="col-lg-3  col-md-3">
+                            <div class="blog_info text-right">
+                                <ul class="blog_meta list">
+                                    <li><strong>{{ news.auteur }} <i class="lnr lnr-user"></i></strong></li>
+                                    <li>Ajouté le:</li>
+                                    <li><a>{{ news.dateAjout|date("d/m/Y à H\\hi") }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                    {% if news.dateAjout != news.dateModif %}
+                                    <li>Modifié le:</li>
+                                      <li><a>{{ news.dateModif|date("d/m/Y à H\\hi")}}<i class="lnr lnr-calendar-full"></i></a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-9 blog_details">
+                            <h2>{{ title}}</h2>
+                            <p>{{ news.contenu }}</p>
+                        </div>
+                    </div>
+                    {% include 'listComments.twig' %}
+                    {% if currentSession.auth == true %}
+                      {% include 'insertComment.twig' %}
+                    {% else %}
+                      <p>Vous devez être connecté pour laisser un commentaire.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

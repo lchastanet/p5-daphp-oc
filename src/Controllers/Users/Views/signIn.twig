@@ -1,15 +1,34 @@
 {% extends "layout.twig" %}
 {% block content %}
-<form action="{{ basePath }}/signIn" method="post">
-  <label>Email :</label>
-  <input name="email" type="email">
-  <br/>
-  <label>Mot de passe :</label>
-  <input name="password" type="password">
-  <br/>
-  <input type="checkbox" id="staySigned" name="staySigned">
-  <label>Rester connecté</label>
-  <br/>
-  <input type="submit" value="Connexion" />
-</form>
+<section class="signIn_area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="contact_info">
+                        <div class="info_item">
+                            <i class="lnr lnr-envelope"></i>
+                            <h6>Connexion</h6>
+                            <p>Send us your query anytime!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <form class="row contact_form" action="{{ basePath }}/signIn" method="post" id="contactForm"
+                        novalidate="novalidate">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Adresse mail">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
+                            </div>
+                        </div>
+                        <div class="col-md-7 text-right">
+                            <button type="submit" value="submit" class="primary-btn"><span>Se connecter</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

@@ -3,35 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="{{ basePath }}/Public/img/logo.png" type="image/png">
     <title>{{ title }}</title>
-    <!-- Bootstrap core CSS -->
-    <link href="{{ basePath }}/Public/lib/startbootstrap-clean-blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/css/bootstrap.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/linericon/style.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/owl-carousel/owl.carousel.min.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/css/magnific-popup.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/nice-select/css/nice-select.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/animate-css/animate.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/flaticon/flaticon.css">
+	<!-- main css -->
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/css/style.css">
 
-    <!-- Custom fonts for this template -->
-    <link href="{{ basePath }}/Public/lib/startbootstrap-clean-blog/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- Custom styles for this template -->
-    <link href="{{ basePath }}/Public/lib/startbootstrap-clean-blog/css/clean-blog.min.css" rel="stylesheet">
+    <!-- custom css -->
+	<link rel="stylesheet" href="{{ basePath }}/Public/css/style.css">
 </head>
 <body>
-    {% include 'navbar.twig' %}
-
     {% include 'header.twig' %}
+    {% include 'hero.twig' %}
 
-    <h1>{{ title }}</h1>
-    <p>{{ flash.message }}</p>
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+	{% if flash %}
+		{% include 'flash.twig' %}
+	{% endif %}
+
+    {% block content %}{% endblock %}
 
     {% include 'footer.twig' %}
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="js/clean-blog.min.js"></script>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="{{ basePath }}/Public/lib/steve-template/js/jquery-3.2.1.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/popper.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/bootstrap.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/stellar.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/jquery.magnific-popup.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/vendors/isotope/isotope-min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/vendors/owl-carousel/owl.carousel.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/theme.js"></script>
 </body>
 </html>

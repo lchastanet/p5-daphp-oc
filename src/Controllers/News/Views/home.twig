@@ -1,20 +1,43 @@
 {% extends "layout.twig" %}
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-    {% for news in news %}
-    <a href="news/{{ news.id }}">
-        <h2 class="post-title">{{ news.titre }}</h2>
-        <h3 class="post-subtitle">{{ news.contenu }}</h3>
-    </a>
-     <p class="post-meta">Posted by
-            <a href="#">{{ news.auteur }}</a>
-            on September 24, 2019</p>
-    {% endfor %}
+<section class="home-title-area">
+		<div class="container">
+			<h3 class="text-heading title_color">Les 5 derniers articles</h3>
+		</div>
+	</section>
+<section class="home_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="blog_left_sidebar">
+                    {% for news in news %}
+                        <article class="row blog_item">
+                            <div class="col-md-3">
+                                <div class="blog_info text-right">
+                                    <ul class="blog_meta list">
+                                        <li><a href="#">{{ news.auteur }}<i class="lnr lnr-user"></i></a></li>
+                                        <li><a href="#">{{ news.dateAjout|date("d/m/Y à H\\hi") }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="blog_post">
+                                    <div class="blog_details">
+                                        <a href="news/{{ news.id }}">
+                                            <h2>{{ news.titre }}</h2>
+                                        </a>
+                                        <p>{{ news.contenu }}</p>
+                                        <a href="news/{{ news.id }}" class="primary_btn">Lire la suite</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-    </div>
+    </section>
+    {% include 'contactForm.twig' %}
 {% endblock %}
