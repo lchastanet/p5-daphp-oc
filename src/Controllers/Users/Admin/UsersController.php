@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\Users\Admin;
 
 use App\lib\Controller;
@@ -21,9 +22,10 @@ class UsersController extends Controller
     $nombreComments = $commentsManager->count();
 
     $renderer = new Renderer(
+      'back',
       'home.twig',
       '../src/Controllers/Users/Admin/Views',
-      ['nombreNews' => $nombreNews, 'nombreComments' => $nombreComments, 'nombreUsers' => $nombreUsers, 'title' => 'Accueil']  
+      ['nombreNews' => $nombreNews, 'nombreComments' => $nombreComments, 'nombreUsers' => $nombreUsers, 'title' => 'Accueil']
     );
     $renderer->render();
   }

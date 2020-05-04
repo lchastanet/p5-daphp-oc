@@ -26,6 +26,7 @@ class NewsController extends Controller
             }
         }
         $renderer = new Renderer(
+            'front',
             'home.twig',
             '../src/Controllers/News/Views',
             ['news' => $listeNews, 'title' => 'Accueil']
@@ -45,6 +46,7 @@ class NewsController extends Controller
         $comments = $controller->executeList($id);
 
         $renderer = new Renderer(
+            'front',
             'show.twig',
             ['../src/Controllers/News/Views', '../src/Controllers/Comments/Views'],
             ['news' => $news, 'comments' => $comments, 'title' => $news->titre()]

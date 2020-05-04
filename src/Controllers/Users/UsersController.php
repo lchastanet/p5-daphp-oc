@@ -48,6 +48,7 @@ class UsersController extends Controller
             }
         } else {
             $renderer = new Renderer(
+                'front',
                 'signIn.twig',
                 '../src/Controllers/Users/Views',
                 ['title' => 'Connexion']
@@ -116,6 +117,7 @@ class UsersController extends Controller
             $this->redirect('/signIn');
         } else {
             $renderer = new Renderer(
+                'front',
                 'signUp.twig',
                 '../src/Controllers/Users/Views',
                 ['title' => 'Inscription']

@@ -19,6 +19,7 @@ class NewsController extends Controller
         $nombreNews = $this->manager->count();
 
         $renderer = new Renderer(
+            'back',
             'list.twig',
             '../src/Controllers/News/Admin/Views',
             ['nombreNews' => $nombreNews, 'listeNews' => $listeNews, 'title' => 'Gestion des articles']
@@ -44,6 +45,7 @@ class NewsController extends Controller
             $this->redirect('/admin/listNews');
         } else {
             $renderer = new Renderer(
+                'back',
                 'insert.twig',
                 '../src/Controllers/News/Admin/Views',
                 ['title' => 'Ajouter un article']
@@ -73,6 +75,7 @@ class NewsController extends Controller
             $news = $this->manager->getUnique($id);
 
             $renderer = new Renderer(
+                'back',
                 'update.twig',
                 '../src/Controllers/News/Admin/Views',
                 ['title' => 'Modifier un article', 'news' => $news]

@@ -18,6 +18,7 @@ class CommentsController extends Controller
         $listCommentsValidated = $this->manager->getAdminList(true);
 
         $renderer = new Renderer(
+            'back',
             'list.twig',
             '../src/Controllers/Comments/Admin/Views',
             ['unvalidatedComments' => $listCommentsUnvalidated, 'validatedComments' => $listCommentsValidated, 'title' => 'Gestion des commentaires']

@@ -18,6 +18,7 @@ abstract class Controller
     public function executeError($errorCode)
     {
         $renderer = new Renderer(
+            'front',
             $errorCode . '.twig',
             '../Errors',
             ['title' => $errorCode],
