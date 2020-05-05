@@ -1,12 +1,59 @@
 {% extends "layout.twig" %}
 {% block content %}
-<p style="text-align: center">Il y a actuellement {{ nombreNews }} news. En voici la liste :</p>
-<a href="{{ basePath }}/admin/addNews">Ajouter un article</a>
-<table>
-  <tr><th>Auteur</th><th>Titre</th><th>Date d'ajout</th><th>Dernière modification</th><th>Action</th></tr>
-  {% for news in listeNews %}
-
-  <tr><td>{{ news.auteur }}</td><td>{{ news.titre }}</td><td>le {{ news.dateAjout|date("d/m/Y à H\\hi") }}</td><td>{{ news.dateModif|date("d/m/Y à H\\hi") }}</td><td><a href="updateNews/{{ news.id }}">Modifier</a> <a href="deleteNews/{{ news.id }}">Supprimer</a></td></tr>
-  {% endfor %}
-</table>
-{% endblock %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">{{ title }}</h2>
+                <a class="au-btn au-btn-icon au-btn--blue" href="{{ basePath }}/admin/addNews">
+                    <i class="zmdi zmdi-plus"></i>Ajout un article</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- USER DATA-->
+            <div class="user-data m-b-30">
+                <h3 class="title-3 m-b-30">Articles ({{ nombreNews }})</h3>
+                <div class="table-responsive table-data">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Auteur</th>
+                                <th>Titre</th>
+                                <th>Date d'ajout</th>
+                                <th>Dernière modification</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for news in listeNews %}
+                                <tr>
+                                    <td>
+                                        <div class="table-data__info">
+                                            <h6>{{ news.auteur }}</h6>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="">{{ news.titre }}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{ news.dateAjout|date("d/m/Y à H\\hi") }}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{ news.dateModif|date("d/m/Y à H\\hi") }}</p>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="updateNews/{{ news.id }}">
+                                            <i class="fas fa-pencil-alt"></i>&nbsp; Modifier</a>
+                                        <a class="btn btn-danger btn-sm" href="deleteNews/{{ news.id }}">
+                                            <i class="fas fa-trash"></i>&nbsp; Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END USER DATA-->
+        </div>
+    {% endblock %}

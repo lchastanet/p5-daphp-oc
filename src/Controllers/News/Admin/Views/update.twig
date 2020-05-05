@@ -1,14 +1,53 @@
 {% extends "layout.twig" %}
 {% block content %}
-  <form action="{{ basePath }}/admin/updateNews/{{ news.id }}" method="post">
-    <p>
-      <label for="titre">Titre</label>
-      <input id="titre" name="titre" type="text" placeholder="{{ news.titre }}">
-    </p>
-    <p>
-      <label for="contenu">Contenu</label>
-      <textarea id="contenu" name="contenu" placeholder="{{ news.contenu }}"></textarea>
-    </p>
-    <input type="submit" value="Modifier" />
-  </form>
+      <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">{{ title }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">Article</div>
+                <div class="card-body">
+                    <form action="{{ basePath }}/admin/updateNews/{{ news.id }}" method="post" novalidate="novalidate">
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label" for="text-input">Titre</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input class="form-control" id="text-input" name="text-input" value="{{ news.titre }}" type="text">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label" for="contenu">Contenu</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <textarea class="form-control" id="contenu" name="contenu" rows="9">{{ news.contenu }}</textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label" for="select">Auteur</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <select class="form-control" id="select" name="select">
+                                    <option value="0">Please select</option>
+                                    <option value="{{ news.auteur }}">{{ news.auteur }}</option>
+                                    <option value="2">Option #2</option>
+                                    <option value="3">Option #3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-lg btn-info btn-block" id="payment-button" type="submit">Ajouter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

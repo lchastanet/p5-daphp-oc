@@ -4,7 +4,8 @@ div.f_logo > img{
   width: 60px;
 }
 
-div.thumb > img {
+div.thumb > img,
+.logo-img {
   height: 60px;
   width: 60px;
 }
@@ -21,4 +22,17 @@ div.thumb > img {
 
 .flashMessage {
   margin-top: 50px;
+}
+
+.header-button,
+.account-wrap {
+  margin-left: auto;
+}
+
+div.overview-wrap {
+  margin-bottom: 1em;
+}
+
+.table thead th {
+  padding-left: 40px;
 }

@@ -1,17 +1,96 @@
 {% extends "layout.twig" %}
 {% block content %}
-<h2>Commentaires à valider</h2>
-<table>
-  <tr><th>Auteur</th><th>Contenu</th><th>Date d'ajout</th><th>Action</th></tr>
-  {% for comment in unvalidatedComments %}
-  <tr><td>{{ comment.auteur }}</td><td>{{ comment.contenu }}</td><td>le {{ comment.date|date("d/m/Y à H\\hi") }}</td><td><a href="commentValidation/{{ comment.id }}">Valider</a> <a href="deleteComment/{{ comment.id }}">Supprimer</a></td></tr>
-  {% endfor %}
-</table>
-<h2>Commentaires validés</h2>
-<table>
-  <tr><th>Auteur</th><th>Contenu</th><th>Date d'ajout</th><th>Action</th></tr>
-  {% for comment in validatedComments %}
-    <tr><td>{{ comment.auteur }}</td><td>{{ comment.contenu }}</td><td>le {{ comment.date|date("d/m/Y à H\\hi") }}</td><td><a href="deleteComment/{{ comment.id }}">Supprimer</a></td></tr>
-  {% endfor %}
-</table>
-{% endblock %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overview-wrap">
+                <h2 class="title-1">{{ title }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- USER DATA-->
+            <div class="user-data m-b-30">
+                <h3 class="title-3 m-b-30">Commentaires à valider</h3>
+                <div class="table-responsive table-data">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Auteur</th>
+                                <th>Contenu</th>
+                                <th>Date d'ajout</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for comment in unvalidatedComments %}
+                                <tr>
+                                    <td>
+                                        <div class="table-data__info">
+                                            <h6>{{ comment.auteur }}</h6>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="">{{ comment.contenu }}</p>
+                                    </td>
+                                    <td>
+                                        <p>le
+                                            {{ comment.date|date("d/m/Y à H\\hi") }}</p>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm" href="commentValidation/{{ comment.id }}">
+                                            <i class="fas fa-check"></i>&nbsp; Valider</a>
+                                        <a class="btn btn-danger btn-sm" href="deleteComment/{{ comment.id }}">
+                                            <i class="fas fa-trash"></i>&nbsp; Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END USER DATA-->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- USER DATA-->
+                <div class="user-data m-b-30">
+                    <h3 class="title-3 m-b-30">Commentaires</h3>
+                    <div class="table-responsive table-data">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Auteur</th>
+                                    <th>Contenu</th>
+                                    <th>Date d'ajout</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for comment in validatedComments %}
+                                    <tr>
+                                        <td>
+                                            <div class="table-data__info">
+                                                <h6>{{ comment.auteur }}</h6>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="">{{ comment.contenu }}</p>
+                                        </td>
+                                        <td>
+                                            <p>le
+                                                {{ comment.date|date("d/m/Y à H\\hi") }}</p>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger btn-sm" href="deleteComment/{{ comment.id }}">
+                                                <i class="fas fa-trash"></i>&nbsp; Supprimer</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END USER DATA-->
+            </div>
+        {% endblock %}

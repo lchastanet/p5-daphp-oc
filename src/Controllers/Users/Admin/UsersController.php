@@ -25,7 +25,12 @@ class UsersController extends Controller
       'back',
       'home.twig',
       '../src/Controllers/Users/Admin/Views',
-      ['nombreNews' => $nombreNews, 'nombreComments' => $nombreComments, 'nombreUsers' => $nombreUsers, 'title' => 'Accueil']
+      [
+        'nombreNews' => $nombreNews,
+        'nombreComments' => $nombreComments,
+        'nombreUsers' => $nombreUsers,
+        'title' => 'Accueil'
+      ]
     );
     $renderer->render();
   }
