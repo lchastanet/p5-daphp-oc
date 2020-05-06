@@ -13,7 +13,29 @@ class NewsController extends Controller
         parent::__construct('News');
     }
 
-    public function executeList()
+    public function executeList($index)
+    {
+        $offset = ($index - 1) * 5;
+
+        $listeNews = $this->manager->getList($offset, 5);
+        $nombreNews = $this->manager->count();
+        $nombrePages = ceil($nombreNews / 5);
+
+        $renderer = new Renderer(
+            'front',
+            'list.twig',
+            '../src/Controllers/News/Views',
+            [
+                'news' => $listeNews,
+                'title' => 'Tous les articles',
+                'currentPage' => $index,
+                'nombrePages' => $nombrePages
+            ]
+        );
+        $renderer->render();
+    }
+
+    public function executeHome()
     {
         $listeNews = $this->manager->getList(0, 5);
 

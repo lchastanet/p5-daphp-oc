@@ -9,7 +9,8 @@ $config = new App\lib\Config();
 $router = new AltoRouter();
 $router->setBasePath($config->getBasePath());
 
-$router->map('GET', '/', 'App\Controllers\News\NewsController#executeList');
+$router->map('GET', '/', 'App\Controllers\News\NewsController#executeHome');
+$router->map('GET', '/listNews/[i:index]', 'App\Controllers\News\NewsController#executeList');
 $router->map('GET', '/news/[i:id]', 'App\Controllers\News\NewsController#executeShow');
 $router->map('POST', '/insertComment/[i:idNews]', 'App\Controllers\Comments\CommentsController#executeInsert');
 $router->map('GET|POST', '/signIn', 'App\Controllers\Users\UsersController#executeSignIn');
