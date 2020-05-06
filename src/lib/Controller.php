@@ -9,6 +9,15 @@ abstract class Controller
 
     public function __construct($manager)
     {
+        if (preg_match("/admin/i", $_SERVER['REQUEST_URI'])) {
+            $authenticator = new Authenticator();
+            $sessionInfo = $authenticator->getSessionInfo();
+
+            if ($sessionInfo['role'] != 'admin') {
+                $this->executeError(401);
+            }
+        }
+
         if (null != $manager) {
             $this->managers = new Managers('PDO', PDOFactory::getMysqlConnexion());
             $this->manager = $this->managers->getManagerOf($manager);
