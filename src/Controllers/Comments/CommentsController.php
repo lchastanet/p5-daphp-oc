@@ -17,13 +17,14 @@ class CommentsController extends Controller
         $comment = new Comment([
             'news' => $idNews,
             'auteur' => $_SESSION['login'],
+            'idUser' => $_SESSION['idUser'],
             'contenu' => $_POST['comment'],
             'validated' => false,
         ]);
 
         $this->manager->save($comment);
 
-        $this->redirect('/news/'.$idNews);
+        $this->redirect('/news/' . $idNews);
     }
 
     public function executeList($idNews)

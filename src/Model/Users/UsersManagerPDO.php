@@ -19,6 +19,21 @@ class UsersManagerPDO extends UsersManager
         return null;
     }
 
+    public function getAdminList()
+    {
+        $q = $this->dao->prepare('SELECT id, login, email, validated, role FROM users WHERE role = :role AND validated = :validated');
+        $q->bindValue(':role', (string) 1, \PDO::PARAM_INT);
+        $q->bindValue(':validated', (string) 1, \PDO::PARAM_INT);
+        $q->execute();
+
+        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\Users\User');
+
+        $result = $q->fetchAll();
+        $q->closeCursor();
+
+        return $result;
+    }
+
     public function count()
     {
         return $this->dao->query('SELECT COUNT(*) FROM users')->fetchColumn();

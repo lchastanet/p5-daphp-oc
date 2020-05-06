@@ -36,6 +36,14 @@ class Authenticator
             $currentSession['login'] = $_SESSION['login'];
         }
 
+        if (isset($_SESSION['idUser'])) {
+            $currentSession['isUser'] = $_SESSION['idUser'];
+        }
+
+        if (isset($_SESSION['email'])) {
+            $currentSession['eamil'] = $_SESSION['email'];
+        }
+
         if (isset($_SESSION['role'])) {
             $currentSession['role'] = $_SESSION['role'];
         }
@@ -46,6 +54,8 @@ class Authenticator
     private function setSessionInfo($user)
     {
         $_SESSION['login'] = $user->login();
+        $_SESSION['idUser'] = $user->id();
+        $_SESSION['email'] = $user->email();
         $_SESSION['auth'] = true;
 
         if (2 == $user->role()) {

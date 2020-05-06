@@ -8,7 +8,7 @@
                         <div class="col-lg-3  col-md-3">
                             <div class="blog_info text-right">
                                 <ul class="blog_meta list">
-                                    <li><strong>{{ news.auteur }} <i class="lnr lnr-user"></i></strong></li>
+                                    <li><strong>{{ news.login }} <i class="lnr lnr-user"></i></strong></li>
                                     <li>Ajouté le:</li>
                                     <li><a>{{ news.dateAjout|date("d/m/Y à H\\hi") }}<i class="lnr lnr-calendar-full"></i></a></li>
                                     {% if news.dateAjout != news.dateModif %}

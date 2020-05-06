@@ -15,10 +15,10 @@
                     <form action="{{ basePath }}/admin/addNews" method="post" novalidate="novalidate">
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label class=" form-control-label" for="text-input">Titre</label>
+                                <label class=" form-control-label" for="titre">Titre</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input class="form-control" id="text-input" name="text-input" placeholder="Text" type="text">
+                                <input class="form-control" id="titre" name="titre" placeholder="Votre titre" type="text">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -42,11 +42,10 @@
                                 <label class=" form-control-label" for="select">Auteur</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <select class="form-control" id="select" name="select">
-                                    <option value="0">Please select</option>
-                                    <option value="1">Option #1</option>
-                                    <option value="2">Option #2</option>
-                                    <option value="3">Option #3</option>
+                                <select class="form-control" id="idUser" name="idUser">
+                                    {% for user in users %}
+                                        <option value="{{ user.id }}">{{ user.login }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>

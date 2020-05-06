@@ -6,11 +6,12 @@ use App\lib\Entity;
 
 class News extends Entity
 {
-    const AUTEUR_INVALIDE = 1;
+    const LOGIN_INVALIDE = 1;
     const TITRE_INVALIDE = 2;
     const CONTENU_INVALIDE = 3;
     const CHAPO_INVALIDE = 4;
-    protected $auteur;
+    protected $idUser;
+    protected $login;
     protected $titre;
     protected $chapo;
     protected $contenu;
@@ -19,18 +20,18 @@ class News extends Entity
 
     public function isValid()
     {
-        return !(empty($this->auteur) || empty($this->titre) || empty($this->contenu));
+        return !(empty($this->idUser) || empty($this->titre) || empty($this->chapo) || empty($this->contenu));
     }
 
     // SETTERS //
 
-    public function setAuteur($auteur)
+    public function setIdUser($idUser)
     {
-        if (!is_string($auteur) || empty($auteur)) {
-            $this->erreurs[] = self::AUTEUR_INVALIDE;
+        if (!is_numeric($idUser) || empty($idUser)) {
+            $this->erreurs[] = self::LOGIN_INVALIDE;
         }
 
-        $this->auteur = $auteur;
+        $this->idUser = $idUser;
     }
 
     public function setTitre($titre)
@@ -40,6 +41,15 @@ class News extends Entity
         }
 
         $this->titre = $titre;
+    }
+
+    public function setlogin($login)
+    {
+        if (!is_string($login) || empty($login)) {
+            $this->erreurs[] = self::LOGIN_INVALIDE;
+        }
+
+        $this->login = $login;
     }
 
     public function setChapo($chapo)
@@ -72,9 +82,14 @@ class News extends Entity
 
     // GETTERS //
 
-    public function auteur()
+    public function idUser()
     {
-        return $this->auteur;
+        return $this->idUser;
+    }
+
+    public function login()
+    {
+        return $this->login;
     }
 
     public function titre()

@@ -10,7 +10,7 @@ class CommentsManagerPDO extends CommentsManager
             throw new \InvalidArgumentException('L\'identifiant de la news passé doit être un nombre entier valide');
         }
 
-        $q = $this->dao->prepare('SELECT id, idNews, auteur, contenu, date FROM comments WHERE idNews = :news AND validated = :validated');
+        $q = $this->dao->prepare('SELECT comments.id, idNews, idUser, login, contenu, date FROM comments, users WHERE idNews = :news AND comments.validated = :validated AND comments.idUser = users.id');
         $q->bindValue(':news', $news, \PDO::PARAM_INT);
         $q->bindValue(':validated', true, \PDO::PARAM_BOOL);
         $q->execute();
@@ -28,7 +28,7 @@ class CommentsManagerPDO extends CommentsManager
 
     public function getAdminList($validated)
     {
-        $q = $this->dao->prepare('SELECT id, idNews, auteur, contenu, date, validated FROM comments WHERE validated = :validated');
+        $q = $this->dao->prepare('SELECT comments.id, idNews, idUser, login, contenu, date, comments.validated FROM comments, users WHERE comments.validated = :validated AND comments.idUser = users.id');
         $q->bindValue(':validated', $validated, \PDO::PARAM_BOOL);
         $q->execute();
 
@@ -45,7 +45,7 @@ class CommentsManagerPDO extends CommentsManager
 
     public function get($id)
     {
-        $q = $this->dao->prepare('SELECT id, idNews, auteur, contenu FROM comments WHERE id = :id');
+        $q = $this->dao->prepare('SELECT comments.id, idNews, idUser, login, contenu FROM comments, users WHERE id = :id AND comments.idUser = users.id');
         $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $q->execute();
 
@@ -56,12 +56,12 @@ class CommentsManagerPDO extends CommentsManager
 
     public function delete($id)
     {
-        $this->dao->exec('DELETE FROM comments WHERE id = '.(int) $id);
+        $this->dao->exec('DELETE FROM comments WHERE id = ' . (int) $id);
     }
 
     public function deleteFromNews($news)
     {
-        $this->dao->exec('DELETE FROM comments WHERE idNews = '.(int) $news);
+        $this->dao->exec('DELETE FROM comments WHERE idNews = ' . (int) $news);
     }
 
     public function count()
@@ -81,10 +81,10 @@ class CommentsManagerPDO extends CommentsManager
 
     protected function add(Comment $comment)
     {
-        $q = $this->dao->prepare('INSERT INTO comments SET idNews = :news, auteur = :auteur, contenu = :contenu, date = NOW(), validated = :validated');
+        $q = $this->dao->prepare('INSERT INTO comments SET idNews = :news, idUser = :idUser, contenu = :contenu, date = NOW(), validated = :validated');
 
         $q->bindValue(':news', $comment->news(), \PDO::PARAM_INT);
-        $q->bindValue(':auteur', $comment->auteur());
+        $q->bindValue(':idUser', $comment->idUser());
         $q->bindValue(':contenu', $comment->contenu());
         $q->bindValue(':validated', $comment->validated(), \PDO::PARAM_BOOL);
 
@@ -95,9 +95,9 @@ class CommentsManagerPDO extends CommentsManager
 
     protected function modify(Comment $comment)
     {
-        $q = $this->dao->prepare('UPDATE comments SET auteur = :auteur, contenu = :contenu WHERE id = :id');
+        $q = $this->dao->prepare('UPDATE comments SET idUser = :idUser, contenu = :contenu WHERE id = :id');
 
-        $q->bindValue(':auteur', $comment->auteur());
+        $q->bindValue(':idUser', $comment->idUser());
         $q->bindValue(':contenu', $comment->contenu());
         $q->bindValue(':id', $comment->id(), \PDO::PARAM_INT);
 
