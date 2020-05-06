@@ -24,6 +24,7 @@ $router->map('GET', '/admin/commentValidation/[i:id]', 'App\Controllers\Comments
 $router->map('GET', '/admin/deleteComment/[i:id]', 'App\Controllers\Comments\admin\CommentsController#executeDelete');
 $router->map('GET|POST', '/admin/updateNews/[i:id]', 'App\Controllers\News\admin\NewsController#executeUpdateNews');
 $router->map('GET', '/admin/deleteNews/[i:id]', 'App\Controllers\News\admin\NewsController#executeDelete');
+$router->map('GET', '/validateAccount/[*:mail]/[h:validationToken]', 'App\Controllers\Users\UsersController#executeValidateAccount');
 
 $match = $router->match();
 
