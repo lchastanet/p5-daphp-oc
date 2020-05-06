@@ -128,4 +128,34 @@ class UsersController extends Controller
             $renderer->render();
         }
     }
+
+    public function executeValidateAccount($email, $validationToken)
+    {
+        $validator = new EmailValidator('Email incorrecte');
+
+        if ($validator->isValid($email)) {
+            $user = $this->manager->getByEmail($email);
+
+            if ($user != null) {
+                if ($user->validationToken() == $validationToken) {
+                    $this->manager->validateAccount($user->id());
+
+                    $flash = new Flash('success', 'votre compte à été validé avec succès, vous pouvez vous connecter!');
+                    $flash->setFlash();
+
+                    $this->redirect('/signIn');
+                } else {
+                    $flash = new Flash('danger', 'le lien ne semble plus fonctionner, veuillez contactez l\'adminisatrateur du site');
+                    $flash->setFlash();
+
+                    $this->redirect('/signUp');
+                }
+            }
+        } else {
+            $flash = new Flash('danger', $validator->errorMessage());
+            $flash->setFlash();
+
+            $this->redirect('/signUp');
+        }
+    }
 }

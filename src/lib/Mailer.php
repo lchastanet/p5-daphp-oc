@@ -25,7 +25,7 @@ class Mailer
         $message = (new \Swift_Message('Finalisez votre inscription sur le site!'))
             ->setFrom([$mailerCreds['mailAdresse'] => 'Site administrator'])
             ->setTo([$this->user->email() => $this->user->login()])
-            ->setBody($config->getSiteURL() . $config->getBasePath() . '/validateUser/' . $this->user->email() . '/' . $this->user->validationToken());
+            ->setBody($config->getSiteURL() . $config->getBasePath() . '/validateAccount/' . $this->user->email() . '/' . $this->user->validationToken());
 
         $result = $mailer->send($message);
 

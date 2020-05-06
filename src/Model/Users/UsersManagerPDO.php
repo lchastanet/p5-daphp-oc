@@ -6,7 +6,7 @@ class UsersManagerPDO extends UsersManager
 {
     public function getByEmail($email)
     {
-        $q = $this->dao->prepare('SELECT id, login, email, validated, role, password FROM users WHERE email = :email');
+        $q = $this->dao->prepare('SELECT id, login, email, validated, role, password, validationToken FROM users WHERE email = :email');
         $q->bindValue(':email', (string) $email, \PDO::PARAM_STR);
         $q->execute();
 
@@ -49,6 +49,16 @@ class UsersManagerPDO extends UsersManager
         $q->bindValue(':validated', $user->validated());
         $q->bindValue(':role', $user->role());
         $q->bindValue(':validationToken', $user->validationToken());
+
+        $q->execute();
+    }
+
+    public function validateAccount($id)
+    {
+        $q = $this->dao->prepare('UPDATE users SET validated = :validated WHERE id = :id');
+
+        $q->bindValue(':validated', 1, \PDO::PARAM_INT);
+        $q->bindValue(':id', $id, \PDO::PARAM_INT);
 
         $q->execute();
     }
