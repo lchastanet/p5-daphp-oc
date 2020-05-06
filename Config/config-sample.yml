@@ -2,6 +2,9 @@
 # basePath est utilisé si le projet n'est pas à la racine du serveur
 basePath: #/p5-daphp-oc
 
+#siteURL est le nom de domaine que vous utilisez
+siteURL: #http://localhost
+
 # ici sont stockées les informations nécéssaires à l'envoi du mail 
 mailer:
   smtpServerAdresse: #smtp.exemple.com

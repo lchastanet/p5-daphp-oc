@@ -3,6 +3,7 @@
 namespace App\Controllers\Comments;
 
 use App\lib\Controller;
+use App\lib\Flash;
 use App\Model\Comments\Comment;
 
 class CommentsController extends Controller
@@ -23,6 +24,9 @@ class CommentsController extends Controller
         ]);
 
         $this->manager->save($comment);
+
+        $flash = new Flash('success', 'Votre commentaire à bien été enregisté, il sera publié après validation!');
+        $flash->setFlash();
 
         $this->redirect('/news/' . $idNews);
     }
