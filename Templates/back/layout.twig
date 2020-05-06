@@ -127,7 +127,7 @@
                                             <img src="{{ basePath }}/Public/img/avatar.jpg" alt="avatar" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#">{{ currentSession.login }}</a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
@@ -138,9 +138,9 @@
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">john doe</a>
+                                                        <a href="#">{{ currentSession.login }}</a>
                                                     </h5>
-                                                    <span class="email">johndoe@example.com</span>
+                                                    <span class="email">{{ currentSession.email }}</span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">

@@ -41,7 +41,7 @@ class Authenticator
         }
 
         if (isset($_SESSION['email'])) {
-            $currentSession['eamil'] = $_SESSION['email'];
+            $currentSession['email'] = $_SESSION['email'];
         }
 
         if (isset($_SESSION['role'])) {
