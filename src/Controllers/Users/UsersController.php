@@ -108,13 +108,13 @@ class UsersController extends Controller
             $mailer = new Mailer($user);
             if ($mailer->sendMail()) {
                 $flash = new Flash('success', 'Veuillez vérifier vos mails et cliquer sur le lien afin de finaliser votre inscription');
+                $flash->setFlash();
+                $this->redirect('/signIn');
             } else {
                 $flash = new Flash('danger', 'Une erreur est survenue, veuillez contacter le webmaster');
+                $flash->setFlash();
+                $this->executeError(500);
             }
-
-            $flash->setFlash();
-
-            $this->redirect('/signIn');
         } else {
             $renderer = new Renderer(
                 'front',
