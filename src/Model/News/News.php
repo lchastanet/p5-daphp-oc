@@ -9,8 +9,10 @@ class News extends Entity
     const AUTEUR_INVALIDE = 1;
     const TITRE_INVALIDE = 2;
     const CONTENU_INVALIDE = 3;
+    const CHAPO_INVALIDE = 4;
     protected $auteur;
     protected $titre;
+    protected $chapo;
     protected $contenu;
     protected $dateAjout;
     protected $dateModif;
@@ -38,6 +40,15 @@ class News extends Entity
         }
 
         $this->titre = $titre;
+    }
+
+    public function setChapo($chapo)
+    {
+        if (!is_string($chapo) || empty($chapo)) {
+            $this->erreurs[] = self::CHAPO_INVALIDE;
+        }
+
+        $this->chapo = $chapo;
     }
 
     public function setContenu($contenu)
@@ -69,6 +80,11 @@ class News extends Entity
     public function titre()
     {
         return $this->titre;
+    }
+
+    public function chapo()
+    {
+        return $this->chapo;
     }
 
     public function contenu()

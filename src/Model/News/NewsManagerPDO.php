@@ -6,10 +6,10 @@ class NewsManagerPDO extends NewsManager
 {
     public function getList($debut = -1, $limite = -1)
     {
-        $sql = 'SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM news ORDER BY id DESC';
+        $sql = 'SELECT id, auteur, titre, chapo, contenu, dateAjout, dateModif FROM news ORDER BY id DESC';
 
         if (-1 != $debut || -1 != $limite) {
-            $sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
+            $sql .= ' LIMIT ' . (int) $limite . ' OFFSET ' . (int) $debut;
         }
 
         $q = $this->dao->query($sql);
@@ -29,7 +29,7 @@ class NewsManagerPDO extends NewsManager
 
     public function getUnique($id)
     {
-        $q = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM news WHERE id = :id');
+        $q = $this->dao->prepare('SELECT id, auteur, titre, chapo, contenu, dateAjout, dateModif FROM news WHERE id = :id');
         $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $q->execute();
 
@@ -47,8 +47,8 @@ class NewsManagerPDO extends NewsManager
 
     public function delete($id)
     {
-        $this->dao->exec('DELETE FROM comments WHERE idNews = '.(int) $id);
-        $this->dao->exec('DELETE FROM news WHERE id = '.(int) $id);
+        $this->dao->exec('DELETE FROM comments WHERE idNews = ' . (int) $id);
+        $this->dao->exec('DELETE FROM news WHERE id = ' . (int) $id);
     }
 
     public function count()
@@ -58,9 +58,10 @@ class NewsManagerPDO extends NewsManager
 
     protected function add(News $news)
     {
-        $q = $this->dao->prepare('INSERT INTO news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+        $q = $this->dao->prepare('INSERT INTO news SET auteur = :auteur, titre = :titre, chapo = :chapo, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
 
         $q->bindValue(':titre', $news->titre());
+        $q->bindValue(':chapo', $news->chapo());
         $q->bindValue(':auteur', $news->auteur());
         $q->bindValue(':contenu', $news->contenu());
 
@@ -69,9 +70,10 @@ class NewsManagerPDO extends NewsManager
 
     protected function modify(News $news)
     {
-        $q = $this->dao->prepare('UPDATE news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateModif = NOW() WHERE id = :id');
+        $q = $this->dao->prepare('UPDATE news SET auteur = :auteur, titre = :titre, chapo = :chapo, contenu = :contenu, dateModif = NOW() WHERE id = :id');
 
         $q->bindValue(':titre', $news->titre());
+        $q->bindValue(':chapo', $news->chapo());
         $q->bindValue(':auteur', $news->auteur());
         $q->bindValue(':contenu', $news->contenu());
         $q->bindValue(':id', $news->id(), \PDO::PARAM_INT);

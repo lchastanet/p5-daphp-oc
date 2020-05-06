@@ -15,10 +15,18 @@
                     <form action="{{ basePath }}/admin/updateNews/{{ news.id }}" method="post" novalidate="novalidate">
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label class=" form-control-label" for="text-input">Titre</label>
+                                <label class=" form-control-label" for="titre">Titre</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input class="form-control" id="text-input" name="text-input" value="{{ news.titre }}" type="text">
+                                <input class="form-control" id="titre" name="titre" value="{{ news.titre }}" type="text">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label" for="chapo">Châpo</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <textarea class="form-control" id="chapo" name="chapo" rows="3">{{ news.chapo }}</textarea>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -43,7 +51,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="btn btn-lg btn-info btn-block" id="payment-button" type="submit">Ajouter</button>
+                            <button class="btn btn-lg btn-info btn-block" id="payment-button" type="submit">Modifier</button>
                         </div>
                     </form>
                 </div>

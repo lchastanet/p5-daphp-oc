@@ -31,11 +31,13 @@ class NewsController extends Controller
     {
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $titre = $_POST['titre'];
+            $chapo = $_POST['chapo'];
             $content = $_POST['contenu'];
             $auteur = $_SESSION['login'];
 
             $news = new News([
                 'titre' => $titre,
+                'chapo' => $chapo,
                 'auteur' => $auteur,
                 'contenu' => $content,
             ]);
@@ -58,12 +60,14 @@ class NewsController extends Controller
     {
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $titre = $_POST['titre'];
+            $chapo = $_POST['chapo'];
             $content = $_POST['contenu'];
             $auteur = $_SESSION['login'];
 
             $news = new News([
                 'id' => $id,
                 'titre' => $titre,
+                'chapo' => $chapo,
                 'auteur' => $auteur,
                 'contenu' => $content,
             ]);

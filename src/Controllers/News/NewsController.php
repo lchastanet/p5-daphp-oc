@@ -17,14 +17,6 @@ class NewsController extends Controller
     {
         $listeNews = $this->manager->getList(0, 5);
 
-        foreach ($listeNews as $news) {
-            if (strlen($news->contenu()) > 200) {
-                $debut = substr($news->contenu(), 0, 200);
-                $debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
-
-                $news->setContenu($debut);
-            }
-        }
         $renderer = new Renderer(
             'front',
             'home.twig',
