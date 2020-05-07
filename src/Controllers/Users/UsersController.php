@@ -108,8 +108,8 @@ class UsersController extends Controller
 
             $this->manager->save($user);
 
-            $mailer = new Mailer($user);
-            if ($mailer->sendMail()) {
+            $mailer = new Mailer();
+            if ($mailer->sendValidationMail($user)) {
                 $flash = new Flash('success', 'Veuillez vérifier vos mails et cliquer sur le lien afin de finaliser votre inscription');
                 $flash->setFlash();
                 $this->redirect('/signIn');
