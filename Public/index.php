@@ -9,7 +9,8 @@ $config = new App\lib\Config();
 $router = new AltoRouter();
 $router->setBasePath($config->getBasePath());
 
-$router->map('GET', '/', 'App\Controllers\News\NewsController#executeList');
+$router->map('GET', '/', 'App\Controllers\News\NewsController#executeHome');
+$router->map('GET', '/listNews/[i:index]', 'App\Controllers\News\NewsController#executeList');
 $router->map('GET', '/news/[i:id]', 'App\Controllers\News\NewsController#executeShow');
 $router->map('POST', '/insertComment/[i:idNews]', 'App\Controllers\Comments\CommentsController#executeInsert');
 $router->map('GET|POST', '/signIn', 'App\Controllers\Users\UsersController#executeSignIn');
@@ -23,6 +24,8 @@ $router->map('GET', '/admin/commentValidation/[i:id]', 'App\Controllers\Comments
 $router->map('GET', '/admin/deleteComment/[i:id]', 'App\Controllers\Comments\admin\CommentsController#executeDelete');
 $router->map('GET|POST', '/admin/updateNews/[i:id]', 'App\Controllers\News\admin\NewsController#executeUpdateNews');
 $router->map('GET', '/admin/deleteNews/[i:id]', 'App\Controllers\News\admin\NewsController#executeDelete');
+$router->map('GET', '/validateAccount/[*:mail]/[h:validationToken]', 'App\Controllers\Users\UsersController#executeValidateAccount');
+$router->map('POST', '/contactForm', 'App\Controllers\PublicController#executeContactForm');
 
 $match = $router->match();
 
@@ -37,5 +40,5 @@ if ($match) {
     }
 } else {
     $controller = new App\Controllers\PublicController();
-    $controller->execute404();
+    $controller->executeError(404);
 }

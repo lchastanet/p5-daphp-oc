@@ -9,14 +9,15 @@ class Comment extends Entity
     const AUTEUR_INVALIDE = 1;
     const CONTENU_INVALIDE = 2;
     protected $news;
-    protected $auteur;
+    protected $idUser;
+    protected $login;
     protected $contenu;
     protected $date;
     protected $validated;
 
     public function isValid()
     {
-        return !(empty($this->auteur) || empty($this->contenu));
+        return !(empty($this->idUser) || empty($this->contenu));
     }
 
     public function setNews($news)
@@ -24,13 +25,13 @@ class Comment extends Entity
         $this->news = (int) $news;
     }
 
-    public function setAuteur($auteur)
+    public function setIdUser($idUser)
     {
-        if (!is_string($auteur) || empty($auteur)) {
+        if (!is_numeric($idUser) || empty($idUser)) {
             $this->erreurs[] = self::AUTEUR_INVALIDE;
         }
 
-        $this->auteur = $auteur;
+        $this->idUser = $idUser;
     }
 
     public function setContenu($contenu)
@@ -40,6 +41,15 @@ class Comment extends Entity
         }
 
         $this->contenu = $contenu;
+    }
+
+    public function setLogin($login)
+    {
+        if (!is_string($login) || empty($login)) {
+            $this->erreurs[] = self::AUTEUR_INVALIDE;
+        }
+
+        $this->contenu = $login;
     }
 
     public function setDate(\DateTime $date)
@@ -57,9 +67,14 @@ class Comment extends Entity
         return $this->news;
     }
 
-    public function auteur()
+    public function idUser()
     {
-        return $this->auteur;
+        return $this->idUser;
+    }
+
+    public function login()
+    {
+        return $this->login;
     }
 
     public function contenu()

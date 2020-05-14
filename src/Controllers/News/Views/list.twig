@@ -1,8 +1,69 @@
 {% extends "layout.twig" %}
 {% block content %}
-    {% for news in news %}
-        <h3><a href="news/{{ news.id }}">{{ news.titre }}</a></h3>
-        <p>{{ news.contenu }}</p>
-        <p>{{ news.auteur }}</p>
-    {% endfor %}
+  <section class="home-title-area">
+		<div class="container">
+			<h3 class="text-heading title_color">Page {{ currentPage }}.</h3>
+		</div>
+	</section>
+<section class="home_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="blog_left_sidebar">
+                    {% for news in news %}
+                        <article class="row blog_item">
+                            <div class="col-md-3">
+                                <div class="blog_info text-right">
+                                    <ul class="blog_meta list">
+                                        <li><a href="#">{{ news.login }}<i class="lnr lnr-user"></i></a></li>
+                                        <li><a href="#">le {{ news.dateAjout|date("d/m/Y à H\\hi") }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="blog_post">
+                                    <div class="blog_details">
+                                        <a href="news/{{ news.id }}">
+                                            <h2>{{ news.titre }}</h2>
+                                        </a>
+                                        <p>{{ news.chapo }}</p>
+                                        <a href="{{ basePath}}/news/{{ news.id }}" class="primary_btn">Lire la suite</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+              <nav class="blog-pagination justify-content-center d-flex">
+                <ul class="pagination">
+                  {% if currentPage != 1 %}
+                  <li class="page-item">
+                    <a href="{{ basePath }}/listNews/{{ currentPage - 1 }}" class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">
+                        <span class="lnr lnr-chevron-left"></span>
+                      </span>
+                    </a>
+                  </li>
+                  {% endif %}
+                  {% for i in 1..nombrePages %}
+                      <li class="page-item active"><a href="{{ basePath }}/listNews/{{ i }}" class="page-link">{{ i }}</a></li>
+                  {% endfor %}
+                  {% if nombrePages > currentPage %}
+                    <li class="page-item">            
+                      <a href="{{ basePath }}/listNews/{{ currentPage + 1 }}" class="page-link" aria-label="Next">
+                        <span aria-hidden="true">
+                            <span class="lnr lnr-chevron-right"></span>
+                        </span>
+                      </a>
+                    </li>
+                    {% endif %}
+                  </ul>
+              </nav>
+            </div>
+        </div>
+    </section>
 {% endblock %}

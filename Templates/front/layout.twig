@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="{{ basePath }}/Public/img/logo.png" type="image/png">
+    <title>{{ title }}</title>
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/css/bootstrap.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/linericon/style.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/owl-carousel/owl.carousel.min.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/css/magnific-popup.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/nice-select/css/nice-select.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/animate-css/animate.css">
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/vendors/flaticon/flaticon.css">
+	<!-- main css -->
+	<link rel="stylesheet" href="{{ basePath }}/Public/lib/steve-template/css/style.css">
+
+    <!-- custom css -->
+	<link rel="stylesheet" href="{{ basePath }}/Public/css/style.css">
+</head>
+<body>
+    {% include 'header.twig' %}
+    {% include 'hero.twig' %}
+
+	{% if flash %}
+		{% include 'flash.twig' %}
+	{% endif %}
+
+    {% block content %}{% endblock %}
+
+    {% include 'footer.twig' %}
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="{{ basePath }}/Public/lib/steve-template/js/jquery-3.2.1.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/popper.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/bootstrap.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/stellar.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/jquery.magnific-popup.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/vendors/isotope/isotope-min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/vendors/owl-carousel/owl.carousel.min.js"></script>
+	<script src="{{ basePath }}/Public/lib/steve-template/js/theme.js"></script>
+</body>
+</html>

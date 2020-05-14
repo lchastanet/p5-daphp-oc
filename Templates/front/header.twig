@@ -1,0 +1,41 @@
+<header class="header_area">
+    <div class="main_menu">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="{{ basePath }}/"><img alt="" src="{{ basePath }}/Public/img/logo.png"></a>
+                <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ basePath }}/">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ basePath }}/listNews/1">Articles</a>
+                        </li>
+                        {% if currentSession.auth %}
+                            {% if currentSession.role == 'admin' %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ basePath }}/admin">Administration</a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ basePath }}/logout">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ basePath }}/signUp">S'inscrire</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ basePath }}/signIn">Se connecter</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

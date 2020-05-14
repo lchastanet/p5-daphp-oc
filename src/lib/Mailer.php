@@ -4,36 +4,53 @@ namespace App\lib;
 
 class Mailer
 {
-    protected $user;
+    protected $config;
 
-    public function __construct($user)
+    public function __construct()
     {
-        $this->user = $user;
+        $this->config = new Config();
     }
 
-    public function sendMail()
+    public function sendContactMail($mail, $name, $subject, $message)
     {
-        $config = new Config();
-        $mailerCreds = $config->getMailerCreds();
+        $sender = [$mail => $name];
+        $recipient = $this->config->getMailerCreds();
+        $recipient = [$recipient['mailAdresse'] => 'Site administrator'];
+
+        return $this->sendMail($sender, $recipient, $subject, $message);
+    }
+
+    public function sendValidationMail($user)
+    {
+        $sender = $this->config->getMailerCreds();
+        $sender = [$sender['mailAdresse'] => 'Site administrator'];
+        $recipient = [$user->email() => $user->login()];
+        $subject = 'Finalisez votre inscription sur le site!';
+        $message = $this->config->getSiteURL() . $this->config->getBasePath() . '/validateAccount/' . $user->email() . '/' . $user->validationToken();
+
+        return $this->sendMail($sender, $recipient, $subject, $message);
+    }
+
+    public function sendMail($sender, $recipient, $subject, $message)
+    {
+        $mailerCreds = $this->config->getMailerCreds();
 
         $transport = (new \Swift_SmtpTransport($mailerCreds['smtpServerAdresse'], $mailerCreds['smtpServerPort']))
             ->setUsername($mailerCreds['mailAdresse'])
-            ->setPassword($mailerCreds['mailPassword'])
-        ;
+            ->setPassword($mailerCreds['mailPassword']);
 
         $mailer = new \Swift_Mailer($transport);
 
-        $message = (new \Swift_Message('Finalisez votre inscription sur le site!'))
-            ->setFrom([$mailerCreds['mailAdresse'] => 'Site administrator'])
-            ->setTo([$this->user->email() => $this->user->login()])
-            ->setBody('http://localhost'.$config->getBasePath().'/validateUser/'.$this->user->email().'/'.$this->user->validationToken())
-;
+        $message = (new \Swift_Message($subject))
+            ->setFrom($sender)
+            ->setTo($recipient)
+            ->setBody($message);
+
         $result = $mailer->send($message);
 
-        if ($result) {
+        if ($result != 0) {
             return true;
         }
-
         return false;
     }
 }

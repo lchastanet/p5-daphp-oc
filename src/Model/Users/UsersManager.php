@@ -20,9 +20,13 @@ abstract class UsersManager extends Manager
         }
     }
 
-    abstract public function getByEmail($id);
+    abstract public function getByEmail($email);
 
     abstract public function count();
+
+    abstract public function getAdminList();
+
+    abstract public function validateAccount($id);
 
     /**
      * Méthode permettant d'ajouter un utilisateur.

@@ -13,9 +13,11 @@ class Renderer
     protected $httpCode;
     protected $currentSession;
     protected $flash;
+    protected $app;
 
-    public function __construct($vue, $templatesPaths = null, $datas, $httpCode = null)
+    public function __construct($app, $vue, $templatesPaths = null, $datas, $httpCode = null)
     {
+        $this->app = $app;
         $this->vue = $vue;
         $this->templatesPaths = $templatesPaths;
         $this->datas = $datas;
@@ -34,7 +36,7 @@ class Renderer
 
         $this->datas = array_merge($this->datas, ['currentSession' => $this->currentSession, 'basePath' => $config->getBasePath()]);
 
-        $loader = new FilesystemLoader('../Templates');
+        $loader = new FilesystemLoader('../Templates/' . $this->app);
 
         if (null != $this->templatesPaths && is_string($this->templatesPaths)) {
             $loader->addPath($this->templatesPaths);
@@ -50,7 +52,7 @@ class Renderer
         if (null === $this->httpCode) {
             http_response_code(200);
         } else {
-            http_response_code(404);
+            http_response_code($this->httpCode);
         }
 
         echo $res->render($this->datas);

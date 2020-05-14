@@ -9,6 +9,7 @@ class User extends Entity
     const LOGIN_INVALIDE = 1;
     const EMAIL_INVALIDE = 2;
     const PASSWORD_INVALIDE = 3;
+    protected $id;
     protected $login;
     protected $email;
     protected $password;
@@ -30,6 +31,15 @@ class User extends Entity
         }
 
         $this->login = $login;
+    }
+
+    public function setId($id)
+    {
+        if (!is_string($id) || empty($id)) {
+            $this->erreurs[] = self::LOGIN_INVALIDE;
+        }
+
+        $this->id = $id;
     }
 
     public function setEmail($email)
@@ -66,6 +76,11 @@ class User extends Entity
     }
 
     // GETTERS //
+
+    public function id()
+    {
+        return $this->id;
+    }
 
     public function login()
     {

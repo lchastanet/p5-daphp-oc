@@ -19,6 +19,7 @@ class NewsController extends Controller
         $nombreNews = $this->manager->count();
 
         $renderer = new Renderer(
+            'back',
             'list.twig',
             '../src/Controllers/News/Admin/Views',
             ['nombreNews' => $nombreNews, 'listeNews' => $listeNews, 'title' => 'Gestion des articles']
@@ -29,13 +30,15 @@ class NewsController extends Controller
     public function executeAddNews()
     {
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
-            $titre = $_POST['titre'];
+            $titre  = $_POST['titre'];
+            $chapo = $_POST['chapo'];
             $content = $_POST['contenu'];
-            $auteur = $_SESSION['login'];
+            $idUser = $_POST['idUser'];
 
             $news = new News([
                 'titre' => $titre,
-                'auteur' => $auteur,
+                'chapo' => $chapo,
+                'idUser' => (int) $idUser,
                 'contenu' => $content,
             ]);
 
@@ -43,10 +46,15 @@ class NewsController extends Controller
 
             $this->redirect('/admin/listNews');
         } else {
+            $manager = $this->managers->getManagerOf('Users');
+
+            $users = $manager->getAdminList();
+
             $renderer = new Renderer(
+                'back',
                 'insert.twig',
                 '../src/Controllers/News/Admin/Views',
-                ['title' => 'Ajouter un article']
+                ['title' => 'Ajouter un article', 'users' => $users]
             );
             $renderer->render();
         }
@@ -56,12 +64,14 @@ class NewsController extends Controller
     {
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $titre = $_POST['titre'];
+            $chapo = $_POST['chapo'];
             $content = $_POST['contenu'];
             $auteur = $_SESSION['login'];
 
             $news = new News([
                 'id' => $id,
                 'titre' => $titre,
+                'chapo' => $chapo,
                 'auteur' => $auteur,
                 'contenu' => $content,
             ]);
@@ -72,10 +82,15 @@ class NewsController extends Controller
         } else {
             $news = $this->manager->getUnique($id);
 
+            $manager = $this->managers->getManagerOf('Users');
+
+            $users = $manager->getAdminList();
+
             $renderer = new Renderer(
+                'back',
                 'update.twig',
                 '../src/Controllers/News/Admin/Views',
-                ['title' => 'Modifier un article', 'news' => $news]
+                ['title' => 'Modifier un article', 'news' => $news, 'users' => $users]
             );
             $renderer->render();
         }
