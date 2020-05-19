@@ -29,7 +29,7 @@ class NewsController extends Controller
 
     public function executeAddNews()
     {
-        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        if ($this->isPostMethod()) {
             $titre  = $_POST['titre'];
             $chapo = $_POST['chapo'];
             $content = $_POST['contenu'];
@@ -62,7 +62,7 @@ class NewsController extends Controller
 
     public function executeUpdateNews($id)
     {
-        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        if ($this->isPostMethod()) {
             $titre = $_POST['titre'];
             $chapo = $_POST['chapo'];
             $content = $_POST['contenu'];

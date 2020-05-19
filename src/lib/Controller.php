@@ -24,6 +24,16 @@ abstract class Controller
         }
     }
 
+    protected function isPostMethod()
+    {
+        if (isset($_SERVER['REQUEST_METHOD'])) {
+            if ('POST' == $_SERVER['REQUEST_METHOD']) {
+                return true;
+            }
+            return false;
+        }
+    }
+
     public function executeError($errorCode)
     {
         $renderer = new Renderer(

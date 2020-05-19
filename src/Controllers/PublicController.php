@@ -17,7 +17,7 @@ class PublicController extends Controller
 
   public function executeContactForm()
   {
-    if ('POST' == $_SERVER['REQUEST_METHOD']) {
+    if ($this->isPostMethod()) {
       $validator = new PostedValuesValidator('Formulaire incomplet, veuillez recommencer');
       $postedValues = $validator->isValid(['name', 'email', 'subject', 'message']);
 

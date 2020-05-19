@@ -20,7 +20,7 @@ class UsersController extends Controller
 
     public function executeSignIn()
     {
-        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        if ($this->isPostMethod()) {
             $email = $_POST['email'];
             $password = $_POST['password'];
 
@@ -62,7 +62,7 @@ class UsersController extends Controller
 
     public function executeSignUp()
     {
-        if ('POST' === $_SERVER['REQUEST_METHOD']) {
+        if ($this->isPostMethod()) {
             $validator = new PostedValuesValidator('Formulaire incomplet, veuillez recommencer');
             $postedValues = $validator->isValid(['login', 'email', 'password', 'passwordValidation']);
 
