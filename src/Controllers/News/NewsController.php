@@ -18,21 +18,26 @@ class NewsController extends Controller
         $offset = ($index - 1) * 5;
 
         $listeNews = $this->manager->getList($offset, 5);
-        $nombreNews = $this->manager->count();
-        $nombrePages = ceil($nombreNews / 5);
 
-        $renderer = new Renderer(
-            'front',
-            'list.twig',
-            '../src/Controllers/News/Views',
-            [
-                'news' => $listeNews,
-                'title' => 'Tous les articles',
-                'currentPage' => $index,
-                'nombrePages' => $nombrePages
-            ]
-        );
-        $renderer->render();
+        if (!empty($listeNews)) {
+            $nombreNews = $this->manager->count();
+            $nombrePages = ceil($nombreNews / 5);
+
+            $renderer = new Renderer(
+                'front',
+                'list.twig',
+                '../src/Controllers/News/Views',
+                [
+                    'news' => $listeNews,
+                    'title' => 'Tous les articles',
+                    'currentPage' => $index,
+                    'nombrePages' => $nombrePages
+                ]
+            );
+            $renderer->render();
+        } else {
+            $this->executeError(404);
+        }
     }
 
     public function executeHome()

@@ -18,7 +18,7 @@
                                 <label class=" form-control-label" for="titre">Titre</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <input class="form-control" id="titre" name="titre" value="{{ news.titre }}" type="text">
+                                <input class="form-control" id="titre" name="titre" value="{{ news.titre|e }}" type="text">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -26,7 +26,7 @@
                                 <label class=" form-control-label" for="chapo">Châpo</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <textarea class="form-control" id="chapo" name="chapo" rows="3">{{ news.chapo }}</textarea>
+                                <textarea class="form-control" id="chapo" name="chapo" rows="3">{{ news.chapo|e }}</textarea>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -34,7 +34,7 @@
                                 <label class=" form-control-label" for="contenu">Contenu</label>
                             </div>
                             <div class="col-12 col-md-9">
-                                <textarea class="form-control" id="contenu" name="contenu" rows="9">{{ news.contenu }}</textarea>
+                                <textarea class="form-control" id="contenu" name="contenu" rows="9">{{ news.contenu|e }}</textarea>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -44,7 +44,7 @@
                             <div class="col-12 col-md-9">
                                 <select class="form-control" id="idUser" name="idUser">
                                     {% for user in users %}
-                                        <option value="{{ user.id }}">{{ user.login }}</option>
+                                        <option value="{{ user.id }}">{{ user.login|e }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

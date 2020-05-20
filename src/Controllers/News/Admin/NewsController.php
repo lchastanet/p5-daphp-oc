@@ -4,7 +4,11 @@ namespace App\Controllers\News\Admin;
 
 use App\lib\Controller;
 use App\lib\Renderer;
+use App\lib\Flash;
+use App\lib\Validators\MaxLengthValidator;
+use App\lib\Validators\NotNullValidator;
 use App\Model\News\News;
+use App\lib\Validators\PostedValuesValidator;
 
 class NewsController extends Controller
 {
@@ -30,21 +34,52 @@ class NewsController extends Controller
     public function executeAddNews()
     {
         if ($this->isPostMethod()) {
-            $titre  = $_POST['titre'];
-            $chapo = $_POST['chapo'];
-            $content = $_POST['contenu'];
-            $idUser = $_POST['idUser'];
+            $validator = new PostedValuesValidator('Un des champs est resté vide');
+            $postedValues = $validator->isValid(['titre', 'chapo', 'contenu', 'idUser']);
 
-            $news = new News([
-                'titre' => $titre,
-                'chapo' => $chapo,
-                'idUser' => (int) $idUser,
-                'contenu' => $content,
-            ]);
+            if (null != $postedValues) {
+                $validator = new NotNullValidator('Un des champs est vide');
 
-            $this->manager->save($news);
+                if (
+                    $validator->isValid($postedValues['titre']) &&
+                    $validator->isValid($postedValues['chapo']) &&
+                    $validator->isValid($postedValues['contenu']) &&
+                    $validator->isValid($postedValues['idUser'])
+                ) {
+                    $validator = new MaxLengthValidator('La champs chapo doit faire 200 caractères maximum', 200);
 
-            $this->redirect('/admin/listNews');
+                    if ($validator->isValid($postedValues['chapo'])) {
+                        $news = new News([
+                            'titre' => $postedValues['titre'],
+                            'chapo' => $postedValues['chapo'],
+                            'idUser' => (int) $postedValues['idUser'],
+                            'contenu' => $postedValues['contenu'],
+                        ]);
+
+                        $this->manager->save($news);
+
+                        $flash = new Flash('success', 'La news à bien été ajoutée');
+                        $flash->setFlash();
+
+                        $this->redirect('/admin/listNews');
+                    } else {
+                        $flash = new Flash('danger', $validator->errorMessage());
+                        $flash->setFlash();
+
+                        $this->redirect('/admin/listNews');
+                    }
+                } else {
+                    $flash = new Flash('danger', 'Un des champs est resté vide');
+                    $flash->setFlash();
+
+                    $this->redirect('/admin/listNews');
+                }
+            } else {
+                $flash = new Flash('danger', 'Un des champs est resté vide');
+                $flash->setFlash();
+
+                $this->redirect('/admin/listNews');
+            }
         } else {
             $manager = $this->managers->getManagerOf('Users');
 
@@ -63,22 +98,52 @@ class NewsController extends Controller
     public function executeUpdateNews($id)
     {
         if ($this->isPostMethod()) {
-            $titre = $_POST['titre'];
-            $chapo = $_POST['chapo'];
-            $content = $_POST['contenu'];
-            $auteur = $_SESSION['login'];
+            $validator = new PostedValuesValidator('Un des champs est resté vide');
+            $postedValues = $validator->isValid(['titre', 'chapo', 'contenu', 'idUser']);
 
-            $news = new News([
-                'id' => $id,
-                'titre' => $titre,
-                'chapo' => $chapo,
-                'auteur' => $auteur,
-                'contenu' => $content,
-            ]);
+            if (null != $postedValues) {
+                $validator = new NotNullValidator('Un des champs est vide');
 
-            $this->manager->save($news);
+                if (
+                    $validator->isValid($postedValues['titre']) &&
+                    $validator->isValid($postedValues['chapo']) &&
+                    $validator->isValid($postedValues['contenu']) &&
+                    $validator->isValid($postedValues['idUser'])
+                ) {
+                    $validator = new MaxLengthValidator('La champs chapo doit faire 200 caractères maximum', 200);
 
-            $this->redirect('/admin/listNews');
+                    if ($validator->isValid($postedValues['chapo'])) {
+                        $news = new News([
+                            'titre' => $postedValues['titre'],
+                            'chapo' => $postedValues['chapo'],
+                            'idUser' => (int) $postedValues['idUser'],
+                            'contenu' => $postedValues['contenu'],
+                        ]);
+
+                        $this->manager->save($news);
+
+                        $flash = new Flash('success', 'La news à bien été modifiée');
+                        $flash->setFlash();
+
+                        $this->redirect('/admin/listNews');
+                    } else {
+                        $flash = new Flash('danger', $validator->errorMessage());
+                        $flash->setFlash();
+
+                        $this->redirect('/admin/updateNews/' . $id);
+                    }
+                } else {
+                    $flash = new Flash('danger', 'Un des champs est resté vide');
+                    $flash->setFlash();
+
+                    $this->redirect('/admin/updateNews/' . $id);
+                }
+            } else {
+                $flash = new Flash('danger', 'Un des champs est resté vide');
+                $flash->setFlash();
+
+                $this->redirect('/admin/updateNews/' . $id);
+            }
         } else {
             $news = $this->manager->getUnique($id);
 
