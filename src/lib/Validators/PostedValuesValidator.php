@@ -14,10 +14,10 @@ class PostedValuesValidator extends Validator
         if (isset($_POST['token'])) {
             $sessionInfo = Authenticator::getSessionInfo();
 
-            if ($_POST['token'] == $sessionInfo['token']) {
+            if (htmlentities($_POST['token'], ENT_QUOTES) == $sessionInfo['token']) {
                 foreach ($val as $item) {
                     if (isset($_POST[$item])) {
-                        $this->values[$item] = $_POST[$item];
+                        $this->values[$item] = htmlentities($_POST[$item], ENT_QUOTES);
                     } else {
                         $this->setErrorMessage('La  valeur' . $item . 'est absente.');
                         return null;
