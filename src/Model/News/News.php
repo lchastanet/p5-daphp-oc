@@ -10,6 +10,7 @@ class News extends Entity
     const TITRE_INVALIDE = 2;
     const CONTENU_INVALIDE = 3;
     const CHAPO_INVALIDE = 4;
+    protected $id;
     protected $idUser;
     protected $login;
     protected $titre;
@@ -80,6 +81,11 @@ class News extends Entity
         $this->dateModif = $dateModif;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     // GETTERS //
 
     public function idUser()
@@ -115,5 +121,10 @@ class News extends Entity
     public function dateModif()
     {
         return $this->dateModif;
+    }
+
+    public function id()
+    {
+        return $this->id;
     }
 }

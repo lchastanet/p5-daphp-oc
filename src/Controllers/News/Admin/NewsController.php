@@ -114,6 +114,7 @@ class NewsController extends Controller
 
                     if ($validator->isValid($postedValues['chapo'])) {
                         $news = new News([
+                            'id' => $id,
                             'titre' => $postedValues['titre'],
                             'chapo' => $postedValues['chapo'],
                             'idUser' => (int) $postedValues['idUser'],

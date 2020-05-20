@@ -37,7 +37,7 @@ class Authenticator
         }
 
         if (isset($_SESSION['idUser'])) {
-            $currentSession['isUser'] = $_SESSION['idUser'];
+            $currentSession['idUser'] = $_SESSION['idUser'];
         }
 
         if (isset($_SESSION['email'])) {
