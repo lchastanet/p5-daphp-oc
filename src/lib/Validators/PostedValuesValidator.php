@@ -11,7 +11,7 @@ class PostedValuesValidator extends Validator
     public function isValid($val)
     {
         foreach ($val as $item) {
-            if (!isset($_POST[$item])) {
+            if (isset($_POST[$item])) {
                 $this->values[$item] = $_POST[$item];
             } else {
                 $this->setErrorMessage('La  valeur' . $item . 'est absente.');
