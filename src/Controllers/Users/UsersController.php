@@ -76,11 +76,13 @@ class UsersController extends Controller
                 $this->redirect('/signIn');
             }
         } else {
+            $sessionInfo = Authenticator::getSessionInfo();
+
             $renderer = new Renderer(
                 'front',
                 'signIn.twig',
                 '../src/Controllers/Users/Views',
-                ['title' => 'Connexion']
+                ['title' => 'Connexion', 'token' => $sessionInfo['token']]
             );
             $renderer->render();
         }
@@ -182,11 +184,13 @@ class UsersController extends Controller
                 $this->redirect('/signUp');
             }
         } else {
+            $sessionInfo = Authenticator::getSessionInfo();
+
             $renderer = new Renderer(
                 'front',
                 'signUp.twig',
                 '../src/Controllers/Users/Views',
-                ['title' => 'Inscription']
+                ['title' => 'Inscription', 'token' => $sessionInfo['token']]
             );
             $renderer->render();
         }

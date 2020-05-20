@@ -2,6 +2,7 @@
 
 namespace App\Controllers\News\Admin;
 
+use App\lib\Authenticator;
 use App\lib\Controller;
 use App\lib\Renderer;
 use App\lib\Flash;
@@ -81,6 +82,8 @@ class NewsController extends Controller
                 $this->redirect('/admin/listNews');
             }
         } else {
+            $sessionInfo = Authenticator::getSessionInfo();
+
             $manager = $this->managers->getManagerOf('Users');
 
             $users = $manager->getAdminList();
@@ -89,7 +92,11 @@ class NewsController extends Controller
                 'back',
                 'insert.twig',
                 '../src/Controllers/News/Admin/Views',
-                ['title' => 'Ajouter un article', 'users' => $users]
+                [
+                    'title' => 'Ajouter un article',
+                    'users' => $users,
+                    'token' => $sessionInfo['token']
+                ]
             );
             $renderer->render();
         }
@@ -134,18 +141,20 @@ class NewsController extends Controller
                         $this->redirect('/admin/updateNews/' . $id);
                     }
                 } else {
-                    $flash = new Flash('danger', 'Un des champs est resté vide');
+                    $flash = new Flash('danger', $validator->errorMessage());
                     $flash->setFlash();
 
                     $this->redirect('/admin/updateNews/' . $id);
                 }
             } else {
-                $flash = new Flash('danger', 'Un des champs est resté vide');
+                $flash = new Flash('danger', $validator->errorMessage());
                 $flash->setFlash();
 
                 $this->redirect('/admin/updateNews/' . $id);
             }
         } else {
+            $sessionInfo = Authenticator::getSessionInfo();
+
             $news = $this->manager->getUnique($id);
 
             $manager = $this->managers->getManagerOf('Users');
@@ -156,7 +165,12 @@ class NewsController extends Controller
                 'back',
                 'update.twig',
                 '../src/Controllers/News/Admin/Views',
-                ['title' => 'Modifier un article', 'news' => $news, 'users' => $users]
+                [
+                    'title' => 'Modifier un article',
+                    'news' => $news,
+                    'users' => $users,
+                    'token' => $sessionInfo['token']
+                ]
             );
             $renderer->render();
         }

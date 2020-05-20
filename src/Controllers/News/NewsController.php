@@ -3,6 +3,7 @@
 namespace App\Controllers\News;
 
 use App\Controllers\Comments\CommentsController;
+use App\lib\Authenticator;
 use App\lib\Controller;
 use App\lib\Renderer;
 
@@ -42,13 +43,18 @@ class NewsController extends Controller
 
     public function executeHome()
     {
+        $sessionInfo = Authenticator::getSessionInfo();
         $listeNews = $this->manager->getList(0, 5);
 
         $renderer = new Renderer(
             'front',
             'home.twig',
             '../src/Controllers/News/Views',
-            ['news' => $listeNews, 'title' => 'Accueil']
+            [
+                'news' => $listeNews,
+                'title' => 'Accueil',
+                'token' => $sessionInfo['token']
+            ]
         );
         $renderer->render();
     }
@@ -61,6 +67,7 @@ class NewsController extends Controller
             $this->executeError(404);
         }
 
+        $sessionInfo = Authenticator::getSessionInfo();
         $controller = new CommentsController();
         $comments = $controller->executeList($id);
 
@@ -68,7 +75,12 @@ class NewsController extends Controller
             'front',
             'show.twig',
             ['../src/Controllers/News/Views', '../src/Controllers/Comments/Views'],
-            ['news' => $news, 'comments' => $comments, 'title' => $news->titre()]
+            [
+                'news' => $news,
+                'comments' => $comments,
+                'title' => $news->titre(),
+                'token' => $sessionInfo['token']
+            ]
         );
         $renderer->render();
     }

@@ -5,6 +5,7 @@
     <div class="form-group">
         <textarea class="form-control mb-10" rows="5" name="comment" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'" required=""></textarea>
     </div>
+        <input type="hidden" name="token" id="token" value="{{ token }}" />
         <button type="submit" class="primary-btn primary_btn"><span>Poster</span></button>
     </form>
 </div>

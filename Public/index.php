@@ -2,7 +2,7 @@
 
 require '../vendor/autoload.php';
 
-session_start();
+App\lib\Authenticator::initSession();
 
 $config = new App\lib\Config();
 

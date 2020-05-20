@@ -21,7 +21,11 @@ class CommentsController extends Controller
             'back',
             'list.twig',
             '../src/Controllers/Comments/Admin/Views',
-            ['unvalidatedComments' => $listCommentsUnvalidated, 'validatedComments' => $listCommentsValidated, 'title' => 'Gestion des commentaires']
+            [
+                'unvalidatedComments' => $listCommentsUnvalidated,
+                'validatedComments' => $listCommentsValidated,
+                'title' => 'Gestion des commentaires'
+            ]
         );
         $renderer->render();
     }
