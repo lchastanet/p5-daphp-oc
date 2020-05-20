@@ -12,30 +12,30 @@ class NewsManagerPDO extends NewsManager
             $sql .= ' LIMIT ' . (int) $limite . ' OFFSET ' . (int) $debut;
         }
 
-        $q = $this->dao->query($sql);
-        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\News\News');
+        $query = $this->dao->query($sql);
+        $query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\News\News');
 
-        $listeNews = $q->fetchAll();
+        $listeNews = $query->fetchAll();
 
         foreach ($listeNews as $news) {
             $news->setDateAjout(new \DateTime($news->dateAjout()));
             $news->setDateModif(new \DateTime($news->dateModif()));
         }
 
-        $q->closeCursor();
+        $query->closeCursor();
 
         return $listeNews;
     }
 
     public function getUnique($id)
     {
-        $q = $this->dao->prepare('SELECT news.id, idUser, login, titre, chapo, contenu, dateAjout, dateModif FROM news, users WHERE news.id = :id AND news.idUser = users.id');
-        $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
-        $q->execute();
+        $query = $this->dao->prepare('SELECT news.id, idUser, login, titre, chapo, contenu, dateAjout, dateModif FROM news, users WHERE news.id = :id AND news.idUser = users.id');
+        $query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+        $query->execute();
 
-        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\News\News');
+        $query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\News\News');
 
-        if ($news = $q->fetch()) {
+        if ($news = $query->fetch()) {
             $news->setDateAjout(new \DateTime($news->dateAjout()));
             $news->setDateModif(new \DateTime($news->dateModif()));
 
@@ -58,26 +58,26 @@ class NewsManagerPDO extends NewsManager
 
     protected function add(News $news)
     {
-        $q = $this->dao->prepare('INSERT INTO news SET idUser = :idUser, titre = :titre, chapo = :chapo, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+        $query = $this->dao->prepare('INSERT INTO news SET idUser = :idUser, titre = :titre, chapo = :chapo, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
 
-        $q->bindValue(':titre', $news->titre());
-        $q->bindValue(':chapo', $news->chapo());
-        $q->bindValue(':idUser', $news->idUser());
-        $q->bindValue(':contenu', $news->contenu());
+        $query->bindValue(':titre', $news->titre());
+        $query->bindValue(':chapo', $news->chapo());
+        $query->bindValue(':idUser', $news->idUser());
+        $query->bindValue(':contenu', $news->contenu());
 
-        $q->execute();
+        $query->execute();
     }
 
     protected function modify(News $news)
     {
-        $q = $this->dao->prepare('UPDATE news SET idUser = :idUser, titre = :titre, chapo = :chapo, contenu = :contenu, dateModif = NOW() WHERE id = :id');
+        $query = $this->dao->prepare('UPDATE news SET idUser = :idUser, titre = :titre, chapo = :chapo, contenu = :contenu, dateModif = NOW() WHERE id = :id');
 
-        $q->bindValue(':titre', $news->titre());
-        $q->bindValue(':chapo', $news->chapo());
-        $q->bindValue(':idUser', $news->idUser());
-        $q->bindValue(':contenu', $news->contenu());
-        $q->bindValue(':id', $news->id(), \PDO::PARAM_INT);
+        $query->bindValue(':titre', $news->titre());
+        $query->bindValue(':chapo', $news->chapo());
+        $query->bindValue(':idUser', $news->idUser());
+        $query->bindValue(':contenu', $news->contenu());
+        $query->bindValue(':id', $news->id(), \PDO::PARAM_INT);
 
-        $q->execute();
+        $query->execute();
     }
 }
