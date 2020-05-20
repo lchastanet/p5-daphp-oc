@@ -57,6 +57,6 @@ class Renderer
             http_response_code($this->httpCode);
         }
 
-        echo $res->render($this->datas);
+        echo filter_var($res->render($this->datas), FILTER_UNSAFE_RAW);
     }
 }
