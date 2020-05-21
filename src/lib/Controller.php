@@ -66,8 +66,6 @@ abstract class Controller
         if (array_key_exists($key, $this->serverDatas)) {
             return $this->serverDatas[$key];
         }
-        var_dump($this->serverDatas[$key]);
-        die;
         return false;
     }
 }
