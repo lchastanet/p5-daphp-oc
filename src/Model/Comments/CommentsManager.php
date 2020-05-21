@@ -43,7 +43,7 @@ abstract class CommentsManager extends Manager
      *
      * @param $id L'identifiant du commentaire à supprimer
      */
-    abstract public function delete($id);
+    abstract public function deleteComment($id);
 
     /**
      * Méthode permettant de supprimer tous les commentaires liés à une news.

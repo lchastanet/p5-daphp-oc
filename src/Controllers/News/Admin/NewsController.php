@@ -178,7 +178,7 @@ class NewsController extends Controller
 
     public function executeDelete($id)
     {
-        $this->manager->delete($id);
+        $this->manager->deleteNews($id);
         $this->redirect('/admin/listNews');
     }
 }

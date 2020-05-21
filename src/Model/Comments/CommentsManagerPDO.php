@@ -54,7 +54,7 @@ class CommentsManagerPDO extends CommentsManager
         return $query->fetch();
     }
 
-    public function delete($id)
+    public function deleteComment($id)
     {
         $this->dao->exec('DELETE FROM comments WHERE id = ' . (int) $id);
     }

@@ -6,11 +6,15 @@ abstract class Controller
 {
     protected $managers;
     protected $manager;
+    protected $serverDatas;
 
     public function __construct($manager)
     {
-        if (isset($_SERVER['REQUEST_URI'])) {
-            if (preg_match("/admin/i", $_SERVER['REQUEST_URI'])) {
+        $this->serverDatas = $_SERVER;
+        $requestURI = self::getServerData('REQUEST_URI');
+
+        if ($requestURI != false) {
+            if (preg_match("/admin/i", $requestURI)) {
                 $authenticator = new Authenticator();
                 $sessionInfo = $authenticator->getSessionInfo();
 
@@ -28,8 +32,10 @@ abstract class Controller
 
     protected function isPostMethod()
     {
-        if (isset($_SERVER['REQUEST_METHOD'])) {
-            if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        $requestMethod = self::getServerData('REQUEST_METHOD');
+
+        if ($requestMethod != false) {
+            if ('POST' == $requestMethod) {
                 return true;
             }
             return false;
@@ -46,7 +52,6 @@ abstract class Controller
             $errorCode
         );
         $renderer->render();
-        exit;
     }
 
     protected function redirect($destination)
@@ -54,6 +59,15 @@ abstract class Controller
         $config = new Config();
 
         header('Location: ' . $config->getBasePath() . $destination);
-        exit;
+    }
+
+    private function getServerData($key)
+    {
+        if (array_key_exists($key, $this->serverDatas)) {
+            return $this->serverDatas[$key];
+        }
+        var_dump($this->serverDatas[$key]);
+        die;
+        return false;
     }
 }
