@@ -4,6 +4,7 @@ namespace App\Controllers\Users\Admin;
 
 use App\lib\Controller;
 use App\lib\Renderer;
+use App\lib\Session;
 
 class UsersController extends Controller
 {
@@ -37,7 +38,7 @@ class UsersController extends Controller
 
   public function executeLogout()
   {
-    $_SESSION = [];
+    Session::destroySession();
     $this->redirect('/');
   }
 }

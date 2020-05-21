@@ -8,8 +8,8 @@ class Authenticator
     {
         session_start();
 
-        if (!isset($_SESSION['token'])) {
-            $_SESSION['token'] = bin2hex(random_bytes(32));
+        if (!array_key_exists('token', Session::getSessionDatas())) {
+            Session::setSessionData('token', bin2hex(random_bytes(32)));
         }
     }
 
@@ -26,7 +26,9 @@ class Authenticator
 
     public function checkAuth()
     {
-        if (isset($_SESSION['auth']) && true == $_SESSION['auth']) {
+        $session = Session::getSessionDatas();
+
+        if (isset($session['auth']) && true == $session['auth']) {
             return true;
         }
 
@@ -35,46 +37,30 @@ class Authenticator
 
     public static function getSessionInfo()
     {
-        $currentSession = [];
+        $datas = [];
 
-        if (isset($_SESSION['auth']) && true == $_SESSION['auth']) {
-            $currentSession['auth'] = $_SESSION['auth'];
+        $currentSession = Session::getSessionDatas();
+        $keys = ['auth', 'login', 'idUser', 'email', 'role', 'token'];
+
+        foreach ($keys as $value) {
+            if (array_key_exists($value, $currentSession)) {
+                $datas[$value] = $currentSession[$value];
+            }
         }
-
-        if (isset($_SESSION['login'])) {
-            $currentSession['login'] = $_SESSION['login'];
-        }
-
-        if (isset($_SESSION['idUser'])) {
-            $currentSession['idUser'] = $_SESSION['idUser'];
-        }
-
-        if (isset($_SESSION['email'])) {
-            $currentSession['email'] = $_SESSION['email'];
-        }
-
-        if (isset($_SESSION['role'])) {
-            $currentSession['role'] = $_SESSION['role'];
-        }
-
-        if (isset($_SESSION['token'])) {
-            $currentSession['token'] = $_SESSION['token'];
-        }
-
-        return $currentSession;
+        return $datas;
     }
 
     private function setSessionInfo($user)
     {
-        $_SESSION['login'] = $user->login();
-        $_SESSION['idUser'] = $user->id();
-        $_SESSION['email'] = $user->email();
-        $_SESSION['auth'] = true;
+        Session::setSessionData('login', $user->login());
+        Session::setSessionData('idUser', $user->id());
+        Session::setSessionData('email', $user->email());
+        Session::setSessionData('auth', true);
 
         if (2 == $user->role()) {
-            $_SESSION['role'] = 'user';
+            Session::setSessionData('role', 'user');
         } else {
-            $_SESSION['role'] = 'admin';
+            Session::setSessionData('role', 'admin');
         }
     }
 }

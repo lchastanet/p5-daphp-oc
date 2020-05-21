@@ -15,14 +15,16 @@ class Flash
 
     public function setFlash()
     {
-        $_SESSION['flash'] = ['type' => $this->type, 'message' => $this->message];
+        Session::setSessionData('flash', ['type' => $this->type, 'message' => $this->message]);
     }
 
     public static function getFlash()
     {
-        if (isset($_SESSION['flash'])) {
-            $flash = $_SESSION['flash'];
-            unset($_SESSION['flash']);
+        $sessionDatas = Session::getSessionDatas();
+
+        if (array_key_exists('flash', $sessionDatas)) {
+            $flash = $sessionDatas['flash'];
+            Session::deleteSessionData('flash');
 
             return $flash;
         }
