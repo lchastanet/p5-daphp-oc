@@ -30,15 +30,15 @@ class CommentsController extends Controller
         $renderer->render();
     }
 
-    public function executeCommentValidation($id)
+    public function executeCommentValidation($idComment)
     {
-        $this->manager->validate($id);
+        $this->manager->validate($idComment);
         $this->redirect('/admin/listComments');
     }
 
-    public function executeDelete($id)
+    public function executeDelete($idComment)
     {
-        $this->manager->deleteComment($id);
+        $this->manager->deleteComment($idComment);
         $this->redirect('/admin/listComments');
     }
 }

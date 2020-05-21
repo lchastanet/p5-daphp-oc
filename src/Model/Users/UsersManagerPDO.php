@@ -53,12 +53,12 @@ class UsersManagerPDO extends UsersManager
         $query->execute();
     }
 
-    public function validateAccount($id)
+    public function validateAccount($idUser)
     {
         $query = $this->dao->prepare('UPDATE users SET validated = :validated WHERE id = :id');
 
         $query->bindValue(':validated', 1, \PDO::PARAM_INT);
-        $query->bindValue(':id', $id, \PDO::PARAM_INT);
+        $query->bindValue(':id', $idUser, \PDO::PARAM_INT);
 
         $query->execute();
     }

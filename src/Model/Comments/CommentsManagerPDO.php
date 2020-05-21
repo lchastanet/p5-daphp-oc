@@ -43,10 +43,10 @@ class CommentsManagerPDO extends CommentsManager
         return $comments;
     }
 
-    public function get($id)
+    public function get($idComment)
     {
         $query = $this->dao->prepare('SELECT comments.id, idNews, idUser, login, contenu FROM comments, users WHERE id = :id AND comments.idUser = users.id');
-        $query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+        $query->bindValue(':id', (int) $idComment, \PDO::PARAM_INT);
         $query->execute();
 
         $query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\Comments\Comment');
@@ -54,9 +54,9 @@ class CommentsManagerPDO extends CommentsManager
         return $query->fetch();
     }
 
-    public function deleteComment($id)
+    public function deleteComment($idComment)
     {
-        $this->dao->exec('DELETE FROM comments WHERE id = ' . (int) $id);
+        $this->dao->exec('DELETE FROM comments WHERE id = ' . (int) $idComment);
     }
 
     public function deleteFromNews($news)
@@ -69,12 +69,12 @@ class CommentsManagerPDO extends CommentsManager
         return $this->dao->query('SELECT COUNT(*) FROM comments')->fetchColumn();
     }
 
-    public function validate($id)
+    public function validate($idComment)
     {
         $query = $this->dao->prepare('UPDATE comments SET validated = :validated WHERE id = :id');
 
         $query->bindValue(':validated', true, \PDO::PARAM_BOOL);
-        $query->bindValue(':id', $id, \PDO::PARAM_INT);
+        $query->bindValue(':id', $idComment, \PDO::PARAM_INT);
 
         $query->execute();
     }

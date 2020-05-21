@@ -36,14 +36,14 @@ abstract class CommentsManager extends Manager
      *
      * @return Comment
      */
-    abstract public function get($id);
+    abstract public function get($idComment);
 
     /**
      * Méthode permettant de supprimer un commentaire.
      *
      * @param $id L'identifiant du commentaire à supprimer
      */
-    abstract public function deleteComment($id);
+    abstract public function deleteComment($idComment);
 
     /**
      * Méthode permettant de supprimer tous les commentaires liés à une news.
@@ -56,7 +56,7 @@ abstract class CommentsManager extends Manager
 
     abstract public function getAdminList($validated);
 
-    abstract public function validate($id);
+    abstract public function validate($idComment);
 
     /**
      * Méthode permettant d'ajouter un commentaire.

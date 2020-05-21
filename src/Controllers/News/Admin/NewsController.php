@@ -102,7 +102,7 @@ class NewsController extends Controller
         }
     }
 
-    public function executeUpdateNews($id)
+    public function executeUpdateNews($idNews)
     {
         if ($this->isPostMethod()) {
             $validator = new PostedValuesValidator('Un des champs est resté vide');
@@ -121,7 +121,7 @@ class NewsController extends Controller
 
                     if ($validator->isValid($postedValues['chapo'])) {
                         $news = new News([
-                            'id' => $id,
+                            'id' => $idNews,
                             'titre' => $postedValues['titre'],
                             'chapo' => $postedValues['chapo'],
                             'idUser' => (int) $postedValues['idUser'],
@@ -138,24 +138,24 @@ class NewsController extends Controller
                         $flash = new Flash('danger', $validator->errorMessage());
                         $flash->setFlash();
 
-                        $this->redirect('/admin/updateNews/' . $id);
+                        $this->redirect('/admin/updateNews/' . $idNews);
                     }
                 } else {
                     $flash = new Flash('danger', $validator->errorMessage());
                     $flash->setFlash();
 
-                    $this->redirect('/admin/updateNews/' . $id);
+                    $this->redirect('/admin/updateNews/' . $idNews);
                 }
             } else {
                 $flash = new Flash('danger', $validator->errorMessage());
                 $flash->setFlash();
 
-                $this->redirect('/admin/updateNews/' . $id);
+                $this->redirect('/admin/updateNews/' . $idNews);
             }
         } else {
             $sessionInfo = Authenticator::getSessionInfo();
 
-            $news = $this->manager->getUnique($id);
+            $news = $this->manager->getUnique($idNews);
 
             $manager = $this->managers->getManagerOf('Users');
 
@@ -176,9 +176,9 @@ class NewsController extends Controller
         }
     }
 
-    public function executeDelete($id)
+    public function executeDelete($idNews)
     {
-        $this->manager->deleteNews($id);
+        $this->manager->deleteNews($idNews);
         $this->redirect('/admin/listNews');
     }
 }

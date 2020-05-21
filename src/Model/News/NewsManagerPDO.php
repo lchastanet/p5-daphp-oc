@@ -27,10 +27,10 @@ class NewsManagerPDO extends NewsManager
         return $listeNews;
     }
 
-    public function getUnique($id)
+    public function getUnique($idNews)
     {
         $query = $this->dao->prepare('SELECT news.id, idUser, login, titre, chapo, contenu, dateAjout, dateModif FROM news, users WHERE news.id = :id AND news.idUser = users.id');
-        $query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+        $query->bindValue(':id', (int) $idNews, \PDO::PARAM_INT);
         $query->execute();
 
         $query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\News\News');
@@ -45,10 +45,10 @@ class NewsManagerPDO extends NewsManager
         return null;
     }
 
-    public function deleteNews($id)
+    public function deleteNews($idNews)
     {
-        $this->dao->exec('DELETE FROM comments WHERE idNews = ' . (int) $id);
-        $this->dao->exec('DELETE FROM news WHERE id = ' . (int) $id);
+        $this->dao->exec('DELETE FROM comments WHERE idNews = ' . (int) $idNews);
+        $this->dao->exec('DELETE FROM news WHERE id = ' . (int) $idNews);
     }
 
     public function count()

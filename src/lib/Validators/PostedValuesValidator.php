@@ -11,13 +11,15 @@ class PostedValuesValidator extends Validator
 
     public function isValid($val)
     {
-        if (isset($_POST['token'])) {
+        $postedValues = $_POST;
+
+        if (array_key_exists('token', $postedValues)) {
             $sessionInfo = Authenticator::getSessionInfo();
 
-            if ($_POST['token'] == $sessionInfo['token']) {
+            if ($postedValues['token'] == $sessionInfo['token']) {
                 foreach ($val as $item) {
-                    if (isset($_POST[$item])) {
-                        $this->values[$item] = $_POST[$item];
+                    if (array_key_exists($item, $postedValues)) {
+                        $this->values[$item] = $postedValues[$item];
                     } else {
                         $this->setErrorMessage('La  valeur' . $item . 'est absente.');
                         return null;

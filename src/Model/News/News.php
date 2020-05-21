@@ -76,9 +76,9 @@ class News extends Entity
         $this->dateModif = $dateModif;
     }
 
-    public function setId($id)
+    public function setId($idNews)
     {
-        $this->id = $id;
+        $this->id = $idNews;
     }
 
     // GETTERS //

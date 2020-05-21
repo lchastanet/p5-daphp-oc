@@ -34,13 +34,13 @@ class User extends Entity
         $this->login = $login;
     }
 
-    public function setId($id)
+    public function setId($idUser)
     {
-        if (!is_string($id) || empty($id)) {
+        if (!is_string($idUser) || empty($idUser)) {
             $this->erreurs[] = "id invalide";
         }
 
-        $this->id = $id;
+        $this->id = $idUser;
     }
 
     public function setEmail($email)
