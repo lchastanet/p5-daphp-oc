@@ -28,7 +28,7 @@ abstract class NewsManager extends Manager
      *
      * @param $id int L'identifiant de la news à supprimer
      */
-    abstract public function delete($id);
+    abstract public function deleteNews($idNews);
 
     /**
      * Méthode retournant une liste de news demandée.
@@ -47,7 +47,7 @@ abstract class NewsManager extends Manager
      *
      * @return News La news demandée
      */
-    abstract public function getUnique($id);
+    abstract public function getUnique($idNews);
 
     /**
      * Méthode renvoyant le nombre de news total.

@@ -14,31 +14,31 @@ class CommentsController extends Controller
 
     public function executeAdminList()
     {
-        $listCommentsUnvalidated = $this->manager->getAdminList(false);
-        $listCommentsValidated = $this->manager->getAdminList(true);
+        $listUnvalidated = $this->manager->getAdminList(false);
+        $listValidated = $this->manager->getAdminList(true);
 
         $renderer = new Renderer(
             'back',
             'list.twig',
             '../src/Controllers/Comments/Admin/Views',
             [
-                'unvalidatedComments' => $listCommentsUnvalidated,
-                'validatedComments' => $listCommentsValidated,
+                'unvalidatedComments' => $listUnvalidated,
+                'validatedComments' => $listValidated,
                 'title' => 'Gestion des commentaires'
             ]
         );
         $renderer->render();
     }
 
-    public function executeCommentValidation($id)
+    public function executeCommentValidation($idComment)
     {
-        $this->manager->validate($id);
+        $this->manager->validate($idComment);
         $this->redirect('/admin/listComments');
     }
 
-    public function executeDelete($id)
+    public function executeDelete($idComment)
     {
-        $this->manager->delete($id);
+        $this->manager->deleteComment($idComment);
         $this->redirect('/admin/listComments');
     }
 }

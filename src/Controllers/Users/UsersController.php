@@ -43,8 +43,9 @@ class UsersController extends Controller
                                 if ($authenticator->checkCredentials($user, $password)) {
                                     if ($user->role() == 1) {
                                         $this->redirect('/admin');
+                                    } else {
+                                        $this->redirect('/');
                                     }
-                                    $this->redirect('/');
                                 } else {
                                     $flash = new Flash('danger', 'Identifiant ou mot de passe incorrecte');
                                     $flash->setFlash();

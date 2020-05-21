@@ -59,9 +59,9 @@ class NewsController extends Controller
         $renderer->render();
     }
 
-    public function executeShow($id)
+    public function executeShow($idNews)
     {
-        $news = $this->manager->getUnique($id);
+        $news = $this->manager->getUnique($idNews);
 
         if (empty($news)) {
             $this->executeError(404);
@@ -69,7 +69,7 @@ class NewsController extends Controller
 
         $sessionInfo = Authenticator::getSessionInfo();
         $controller = new CommentsController();
-        $comments = $controller->executeList($id);
+        $comments = $controller->executeList($idNews);
 
         $renderer = new Renderer(
             'front',

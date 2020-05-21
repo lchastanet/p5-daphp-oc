@@ -26,7 +26,7 @@ abstract class UsersManager extends Manager
 
     abstract public function getAdminList();
 
-    abstract public function validateAccount($id);
+    abstract public function validateAccount($idUser);
 
     /**
      * Méthode permettant d'ajouter un utilisateur.
