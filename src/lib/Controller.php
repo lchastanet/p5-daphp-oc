@@ -14,7 +14,7 @@ abstract class Controller
                 $authenticator = new Authenticator();
                 $sessionInfo = $authenticator->getSessionInfo();
 
-                if ($sessionInfo['role'] != 'admin') {
+                if (!in_array('role', $sessionInfo) || $sessionInfo['role'] != 'admin') {
                     $this->executeError(401);
                 }
             }
