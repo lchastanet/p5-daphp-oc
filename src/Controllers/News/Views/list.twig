@@ -49,7 +49,7 @@
                   </li>
                   {% endif %}
                   {% for i in 1..nombrePages %}
-                      <li class="page-item active"><a href="{{ basePath }}/listNews/{{ i }}" class="page-link">{{ i }}</a></li>
+                      <li class="page-item"><a href="{{ basePath }}/listNews/{{ i }}" class="page-link">{{ i }}</a></li>
                   {% endfor %}
                   {% if nombrePages > currentPage %}
                     <li class="page-item">            

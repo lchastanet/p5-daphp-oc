@@ -44,7 +44,7 @@ abstract class Entity implements \ArrayAccess
 
     public function offsetSet($var, $value)
     {
-        $method = 'set'.ucfirst($var);
+        $method = 'set' . ucfirst($var);
 
         if (isset($this->{$var}) && is_callable([$this, $method])) {
             $this->{$method}($value);
