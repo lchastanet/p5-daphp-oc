@@ -6,10 +6,6 @@ use App\lib\Entity;
 
 class User extends Entity
 {
-    const LOGIN_INVALIDE = 1;
-    const EMAIL_INVALIDE = 2;
-    const PASSWORD_INVALIDE = 3;
-    protected $id;
     protected $login;
     protected $email;
     protected $password;
@@ -19,7 +15,12 @@ class User extends Entity
 
     public function isValid()
     {
-        return true;
+        return !(empty($this->login) ||
+            empty($this->email) ||
+            empty($this->password) ||
+            empty($this->validated) ||
+            empty($this->role) ||
+            empty($this->validationToken));
     }
 
     // SETTERS //
@@ -27,7 +28,7 @@ class User extends Entity
     public function setLogin($login)
     {
         if (!is_string($login) || empty($login)) {
-            $this->erreurs[] = self::LOGIN_INVALIDE;
+            $this->erreurs[] = "login invalide";
         }
 
         $this->login = $login;
@@ -36,7 +37,7 @@ class User extends Entity
     public function setId($id)
     {
         if (!is_string($id) || empty($id)) {
-            $this->erreurs[] = self::LOGIN_INVALIDE;
+            $this->erreurs[] = "id invalide";
         }
 
         $this->id = $id;
@@ -45,7 +46,7 @@ class User extends Entity
     public function setEmail($email)
     {
         if (!is_string($email) || empty($email)) {
-            $this->erreurs[] = self::EMAIL_INVALIDE;
+            $this->erreurs[] = "email invalide";
         }
 
         $this->email = $email;
@@ -54,7 +55,7 @@ class User extends Entity
     public function setPassword($password)
     {
         if (!is_string($password) || empty($password)) {
-            $this->erreurs[] = self::PASSWORD_INVALIDE;
+            $this->erreurs[] = "mot de passe invalide";
         }
 
         $this->password = $password;

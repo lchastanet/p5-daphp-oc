@@ -6,8 +6,6 @@ use App\lib\Entity;
 
 class Comment extends Entity
 {
-    const AUTEUR_INVALIDE = 1;
-    const CONTENU_INVALIDE = 2;
     protected $news;
     protected $idUser;
     protected $login;
@@ -28,7 +26,7 @@ class Comment extends Entity
     public function setIdUser($idUser)
     {
         if (!is_numeric($idUser) || empty($idUser)) {
-            $this->erreurs[] = self::AUTEUR_INVALIDE;
+            $this->erreurs[] = "idUser invalide";
         }
 
         $this->idUser = $idUser;
@@ -37,7 +35,7 @@ class Comment extends Entity
     public function setContenu($contenu)
     {
         if (!is_string($contenu) || empty($contenu)) {
-            $this->erreurs[] = self::CONTENU_INVALIDE;
+            $this->erreurs[] = "contenu invalide";
         }
 
         $this->contenu = $contenu;
@@ -46,7 +44,7 @@ class Comment extends Entity
     public function setLogin($login)
     {
         if (!is_string($login) || empty($login)) {
-            $this->erreurs[] = self::AUTEUR_INVALIDE;
+            $this->erreurs[] = "login invalide";
         }
 
         $this->contenu = $login;

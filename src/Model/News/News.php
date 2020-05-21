@@ -6,11 +6,6 @@ use App\lib\Entity;
 
 class News extends Entity
 {
-    const LOGIN_INVALIDE = 1;
-    const TITRE_INVALIDE = 2;
-    const CONTENU_INVALIDE = 3;
-    const CHAPO_INVALIDE = 4;
-    protected $id;
     protected $idUser;
     protected $login;
     protected $titre;
@@ -29,7 +24,7 @@ class News extends Entity
     public function setIdUser($idUser)
     {
         if (!is_numeric($idUser) || empty($idUser)) {
-            $this->erreurs[] = self::LOGIN_INVALIDE;
+            $this->erreurs[] = "idUser invalide";
         }
 
         $this->idUser = $idUser;
@@ -38,7 +33,7 @@ class News extends Entity
     public function setTitre($titre)
     {
         if (!is_string($titre) || empty($titre)) {
-            $this->erreurs[] = self::TITRE_INVALIDE;
+            $this->erreurs[] = "titre invalide";
         }
 
         $this->titre = $titre;
@@ -47,7 +42,7 @@ class News extends Entity
     public function setlogin($login)
     {
         if (!is_string($login) || empty($login)) {
-            $this->erreurs[] = self::LOGIN_INVALIDE;
+            $this->erreurs[] = "login invalide";
         }
 
         $this->login = $login;
@@ -56,7 +51,7 @@ class News extends Entity
     public function setChapo($chapo)
     {
         if (!is_string($chapo) || empty($chapo)) {
-            $this->erreurs[] = self::CHAPO_INVALIDE;
+            $this->erreurs[] = "chapo invalide";
         }
 
         $this->chapo = $chapo;
@@ -65,7 +60,7 @@ class News extends Entity
     public function setContenu($contenu)
     {
         if (!is_string($contenu) || empty($contenu)) {
-            $this->erreurs[] = self::CONTENU_INVALIDE;
+            $this->erreurs[] = "contenu invalide";
         }
 
         $this->contenu = $contenu;
