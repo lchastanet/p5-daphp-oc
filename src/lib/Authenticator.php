@@ -4,6 +4,15 @@ namespace App\lib;
 
 class Authenticator
 {
+    public static function initSession()
+    {
+        session_start();
+
+        if (!isset($_SESSION['token'])) {
+            $_SESSION['token'] = bin2hex(random_bytes(32));
+        }
+    }
+
     public function checkCredentials($user, $password)
     {
         if (password_verify($password, $user->password())) {
@@ -37,7 +46,7 @@ class Authenticator
         }
 
         if (isset($_SESSION['idUser'])) {
-            $currentSession['isUser'] = $_SESSION['idUser'];
+            $currentSession['idUser'] = $_SESSION['idUser'];
         }
 
         if (isset($_SESSION['email'])) {
@@ -46,6 +55,10 @@ class Authenticator
 
         if (isset($_SESSION['role'])) {
             $currentSession['role'] = $_SESSION['role'];
+        }
+
+        if (isset($_SESSION['token'])) {
+            $currentSession['token'] = $_SESSION['token'];
         }
 
         return $currentSession;

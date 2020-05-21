@@ -30,11 +30,11 @@
                                 <tr>
                                     <td>
                                         <div class="table-data__info">
-                                            <h6>{{ news.login }}</h6>
+                                            <h6>{{ news.login|e }}</h6>
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="">{{ news.titre }}</p>
+                                        <p class="">{{ news.titre|e }}</p>
                                     </td>
                                     <td>
                                         <p>{{ news.dateAjout|date("d/m/Y à H\\hi") }}</p>

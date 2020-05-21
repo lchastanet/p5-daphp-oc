@@ -6,13 +6,13 @@ class UsersManagerPDO extends UsersManager
 {
     public function getByEmail($email)
     {
-        $q = $this->dao->prepare('SELECT id, login, email, validated, role, password, validationToken FROM users WHERE email = :email');
-        $q->bindValue(':email', (string) $email, \PDO::PARAM_STR);
-        $q->execute();
+        $query = $this->dao->prepare('SELECT id, login, email, validated, role, password, validationToken FROM users WHERE email = :email');
+        $query->bindValue(':email', (string) $email, \PDO::PARAM_STR);
+        $query->execute();
 
-        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\Users\User');
+        $query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\Users\User');
 
-        if ($user = $q->fetch()) {
+        if ($user = $query->fetch()) {
             return $user;
         }
 
@@ -21,15 +21,15 @@ class UsersManagerPDO extends UsersManager
 
     public function getAdminList()
     {
-        $q = $this->dao->prepare('SELECT id, login, email, validated, role FROM users WHERE role = :role AND validated = :validated');
-        $q->bindValue(':role', (string) 1, \PDO::PARAM_INT);
-        $q->bindValue(':validated', (string) 1, \PDO::PARAM_INT);
-        $q->execute();
+        $query = $this->dao->prepare('SELECT id, login, email, validated, role FROM users WHERE role = :role AND validated = :validated');
+        $query->bindValue(':role', (string) 1, \PDO::PARAM_INT);
+        $query->bindValue(':validated', (string) 1, \PDO::PARAM_INT);
+        $query->execute();
 
-        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\Users\User');
+        $query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'App\Model\Users\User');
 
-        $result = $q->fetchAll();
-        $q->closeCursor();
+        $result = $query->fetchAll();
+        $query->closeCursor();
 
         return $result;
     }
@@ -41,25 +41,25 @@ class UsersManagerPDO extends UsersManager
 
     protected function add(User $user)
     {
-        $q = $this->dao->prepare('INSERT INTO users SET login = :login, email = :email, password = :password, validated = :validated, role = :role, validationToken = :validationToken');
+        $query = $this->dao->prepare('INSERT INTO users SET login = :login, email = :email, password = :password, validated = :validated, role = :role, validationToken = :validationToken');
 
-        $q->bindValue(':login', $user->login());
-        $q->bindValue(':email', $user->email());
-        $q->bindValue(':password', $user->password());
-        $q->bindValue(':validated', $user->validated());
-        $q->bindValue(':role', $user->role());
-        $q->bindValue(':validationToken', $user->validationToken());
+        $query->bindValue(':login', $user->login());
+        $query->bindValue(':email', $user->email());
+        $query->bindValue(':password', $user->password());
+        $query->bindValue(':validated', $user->validated());
+        $query->bindValue(':role', $user->role());
+        $query->bindValue(':validationToken', $user->validationToken());
 
-        $q->execute();
+        $query->execute();
     }
 
     public function validateAccount($id)
     {
-        $q = $this->dao->prepare('UPDATE users SET validated = :validated WHERE id = :id');
+        $query = $this->dao->prepare('UPDATE users SET validated = :validated WHERE id = :id');
 
-        $q->bindValue(':validated', 1, \PDO::PARAM_INT);
-        $q->bindValue(':id', $id, \PDO::PARAM_INT);
+        $query->bindValue(':validated', 1, \PDO::PARAM_INT);
+        $query->bindValue(':id', $id, \PDO::PARAM_INT);
 
-        $q->execute();
+        $query->execute();
     }
 }

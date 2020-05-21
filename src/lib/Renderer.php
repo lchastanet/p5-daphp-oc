@@ -38,6 +38,8 @@ class Renderer
 
         $loader = new FilesystemLoader('../Templates/' . $this->app);
 
+        $loader->addPath('../Templates/partials');
+
         if (null != $this->templatesPaths && is_string($this->templatesPaths)) {
             $loader->addPath($this->templatesPaths);
         } else {
