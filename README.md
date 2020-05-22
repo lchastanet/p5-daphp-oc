@@ -11,7 +11,7 @@ Then run
 composer install
 ```
 
-Restore the database whith the dump **sql/dump.sql**.
+Restore the database whith the dump **sql/db.sql**.
 
 To run app you need to put correct informations in **Config/config-sample.yml** file:
 
