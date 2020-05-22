@@ -1,18 +1,18 @@
 ---
-# basePath est utilisé si le projet n'est pas à la racine du serveur
+# basePath is used if the site is hosted in a subfolder
 basePath: #/p5-daphp-oc
 
-#siteURL est le nom de domaine que vous utilisez
+#siteURL is the domain name where the site is hosteds
 siteURL: #http://localhost
 
-# ici sont stockées les informations nécéssaires à l'envoi du mail 
+# mailer is the credentials to smtp serve use to send mails
 mailer:
   smtpServerAdresse: #smtp.exemple.com
   smtpServerPort: #587
   mailAdresse: #user@domain.ext
   mailPassword: #azerty
 
-# ici sont stockée les information de connexion à la base de donnée
+# dataBase is the credentials to connect to dababase
 dataBase:
   hostName: #localhost
   dbName: #frameworkOCauth
