@@ -2,7 +2,7 @@
 
 namespace App\lib;
 
-abstract class Entity implements \ArrayAccess
+abstract class Entity
 {
     use Hydrator;
     protected $erreurs = [];
@@ -20,6 +20,14 @@ abstract class Entity implements \ArrayAccess
         return empty($this->id);
     }
 
+    // SETTERS
+
+    public function setId($idEntity)
+    {
+        $this->id = (int) $idEntity;
+    }
+
+    // GETTERS
     public function erreurs()
     {
         return $this->erreurs;
@@ -28,36 +36,5 @@ abstract class Entity implements \ArrayAccess
     public function id()
     {
         return $this->id;
-    }
-
-    public function setId($idEntity)
-    {
-        $this->id = (int) $idEntity;
-    }
-
-    public function offsetGet($var)
-    {
-        if (isset($this->{$var}) && is_callable([$this, $var])) {
-            return $this->{$var}();
-        }
-    }
-
-    public function offsetSet($var, $value)
-    {
-        $method = 'set' . ucfirst($var);
-
-        if (isset($this->{$var}) && is_callable([$this, $method])) {
-            $this->{$method}($value);
-        }
-    }
-
-    public function offsetExists($var)
-    {
-        return isset($this->{$var}) && is_callable([$this, $var]);
-    }
-
-    public function offsetUnset($var)
-    {
-        throw new \Exception('Impossible de supprimer une quelconque valeur');
     }
 }
