@@ -52,10 +52,28 @@ abstract class CommentsManager extends Manager
      */
     abstract public function deleteFromNews($news);
 
+    /**
+     * Méthode renvoyant le nombre de commentaires total.
+     *
+     * @return int
+     */
     abstract public function count();
 
+
+    /**
+     * Méthode permettant d'obtenir une liste de commentaires.
+     *
+     * @param $validated bool Un booléen indiquant le type de commentaires a retourner
+     *
+     * @return Array 
+     */
     abstract public function getAdminList($validated);
 
+    /**
+     * Méthode permettant de valider un commentaire.
+     *
+     * @param $idComment int L'indentifiant du commentaire à  valider
+     */
     abstract public function validate($idComment);
 
     /**

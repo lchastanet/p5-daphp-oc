@@ -15,15 +15,15 @@ $router->map('GET', '/news/[i:id]', 'App\Controllers\News\NewsController#execute
 $router->map('POST', '/insertComment/[i:idNews]', 'App\Controllers\Comments\CommentsController#executeInsert');
 $router->map('GET|POST', '/signIn', 'App\Controllers\Users\UsersController#executeSignIn');
 $router->map('GET|POST', '/signUp', 'App\Controllers\Users\UsersController#executeSignUp');
-$router->map('GET', '/admin', 'App\Controllers\Users\admin\UsersController#executeHome');
-$router->map('GET', '/logout', 'App\Controllers\Users\admin\UsersController#executeLogout');
-$router->map('GET', '/admin/listNews', 'App\Controllers\News\admin\NewsController#executeList');
-$router->map('GET|POST', '/admin/addNews', 'App\Controllers\News\admin\NewsController#executeAddNews');
-$router->map('GET', '/admin/listComments', 'App\Controllers\Comments\admin\CommentsController#executeAdminList');
-$router->map('GET', '/admin/commentValidation/[i:id]', 'App\Controllers\Comments\admin\CommentsController#executeCommentValidation');
-$router->map('GET', '/admin/deleteComment/[i:id]', 'App\Controllers\Comments\admin\CommentsController#executeDelete');
-$router->map('GET|POST', '/admin/updateNews/[i:id]', 'App\Controllers\News\admin\NewsController#executeUpdateNews');
-$router->map('GET', '/admin/deleteNews/[i:id]', 'App\Controllers\News\admin\NewsController#executeDelete');
+$router->map('GET', '/admin', 'App\Controllers\Users\Admin\UsersController#executeHome');
+$router->map('GET', '/logout', 'App\Controllers\Users\Admin\UsersController#executeLogout');
+$router->map('GET', '/admin/listNews', 'App\Controllers\News\Admin\NewsController#executeList');
+$router->map('GET|POST', '/admin/addNews', 'App\Controllers\News\Admin\NewsController#executeAddNews');
+$router->map('GET', '/admin/listComments', 'App\Controllers\Comments\Admin\CommentsController#executeAdminList');
+$router->map('GET', '/admin/commentValidation/[i:id]', 'App\Controllers\Comments\Admin\CommentsController#executeCommentValidation');
+$router->map('GET', '/admin/deleteComment/[i:id]', 'App\Controllers\Comments\Admin\CommentsController#executeDelete');
+$router->map('GET|POST', '/admin/updateNews/[i:id]', 'App\Controllers\News\Admin\NewsController#executeUpdateNews');
+$router->map('GET', '/admin/deleteNews/[i:id]', 'App\Controllers\News\Admin\NewsController#executeDelete');
 $router->map('GET', '/validateAccount/[*:mail]/[h:validationToken]', 'App\Controllers\Users\UsersController#executeValidateAccount');
 $router->map('POST', '/contactForm', 'App\Controllers\PublicController#executeContactForm');
 

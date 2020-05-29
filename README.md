@@ -11,20 +11,25 @@ Then run
 composer install
 ```
 
-To run app you need to put correct informations in **Config/config-sample.yml** file
+Restore the database whith the dump **sql/db.sql**.
+
+To run app you need to put correct informations in **Config/config-sample.yml** file:
 
 ```yaml
-# basePath est utilisé si le projet n'est pas à la racine du serveur
+# basePath is used if the site is hosted in a subfolder
 basePath: #/p5-daphp-oc
 
-# ici sont stockées les informations nécéssaires à l'envoi du mail 
+#siteURL is the domain name where the site is hosteds
+siteURL: #http://localhost
+
+# mailer is the credentials to smtp serve use to send mails
 mailer:
   smtpServerAdresse: #smtp.exemple.com
   smtpServerPort: #587
   mailAdresse: #user@domain.ext
   mailPassword: #azerty
 
-# ici sont stockée les information de connexion à la base de donnée
+# dataBase is the credentials to connect to dababase
 dataBase:
   hostName: #localhost
   dbName: #frameworkOCauth
@@ -32,4 +37,4 @@ dataBase:
   password: #root
 ```
 
- then rename **config-sample.yml** in **config.yml**
+ then rename **config-sample.yml** in **config.yml**.
