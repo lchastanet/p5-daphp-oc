@@ -18,7 +18,6 @@ class User extends Entity
         return !(empty($this->login) ||
             empty($this->email) ||
             empty($this->password) ||
-            empty($this->validated) ||
             empty($this->role) ||
             empty($this->validationToken));
     }
