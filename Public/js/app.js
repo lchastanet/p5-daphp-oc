@@ -7,9 +7,17 @@ if (elements.length > 0){
 
     links = document.getElementsByClassName('page-item')
 
-    for (var i = 0; i < links.length; i++) {
+    for (let i = 0; i < links.length; i++) {
         if (links[i].firstChild.innerHTML == page){
-            links[i].classList.add("active")
+            links[i].classList.add('active')
         }      
     }
 }
+
+$('.deleteButton').click((e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    $('#mediumModal').modal('show')
+    $('#deleteButton').attr('href', e.target.href)
+})

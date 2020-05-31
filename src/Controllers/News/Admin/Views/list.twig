@@ -11,7 +11,6 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <!-- USER DATA-->
             <div class="user-data m-b-30">
                 <h3 class="title-3 m-b-30">Articles ({{ nombreNews }})</h3>
                 <div class="table-responsive table-data">
@@ -43,10 +42,9 @@
                                         <p>{{ news.dateModif|date("d/m/Y à H\\hi") }}</p>
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href="updateNews/{{ news.id }}">
+                                        <a href="updateNews/{{ news.id }}" class="btn btn-primary btn-sm">
                                             <i class="fas fa-pencil-alt"></i>&nbsp; Modifier</a>
-                                        <a class="btn btn-danger btn-sm" href="deleteNews/{{ news.id }}">
-                                            <i class="fas fa-trash"></i>&nbsp; Supprimer</a>
+                                        <a href="deleteNews/{{ news.id }}" class="btn btn-danger btn-sm deleteButton"><i class="fas fa-trash"></i>&nbsp; Supprimer</a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -54,6 +52,5 @@
                     </table>
                 </div>
             </div>
-            <!-- END USER DATA-->
         </div>
     {% endblock %}

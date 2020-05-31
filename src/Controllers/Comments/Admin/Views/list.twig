@@ -39,7 +39,7 @@
                                     <td>
                                         <a class="btn btn-success btn-sm" href="commentValidation/{{ comment.id }}">
                                             <i class="fas fa-check"></i>&nbsp; Valider</a>
-                                        <a class="btn btn-danger btn-sm" href="deleteComment/{{ comment.id }}">
+                                        <a class="btn btn-danger btn-sm deleteButton" href="deleteComment/{{ comment.id }}">
                                             <i class="fas fa-trash"></i>&nbsp; Supprimer</a>
                                     </td>
                                 </tr>
@@ -79,7 +79,7 @@
                                                 {{ comment.date|date("d/m/Y à H\\hi") }}</p>
                                         </td>
                                         <td>
-                                            <a class="btn btn-danger btn-sm" href="deleteComment/{{ comment.id }}">
+                                            <a class="btn btn-danger btn-sm deleteButton" href="deleteComment/{{ comment.id }}">
                                                 <i class="fas fa-trash"></i>&nbsp; Supprimer</a>
                                         </td>
                                     </tr>
