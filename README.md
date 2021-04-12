@@ -1,4 +1,4 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/739d131f64d54ef1b925262a031b6a6a)](https://www.codacy.com/manual/Fr0x13/p5-daphp-oc?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Fr0x13/p5-daphp-oc&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d51b4467bb4d41a3ad7a934aeb343a99)](https://www.codacy.com/gh/lchastanet/p5-daphp-oc/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lchastanet/p5-daphp-oc&amp;utm_campaign=Badge_Grade)
 # p5-daphp-oc
 
 This project has been carried out with the aim of passing a diploma on the [OpenClassrooms.com](https://openclassrooms.com/) learning platform.
