@@ -11,7 +11,7 @@ $router->setBasePath($config->getBasePath());
 
 $router->map('GET', '/', 'App\Controllers\News\NewsController#executeHome');
 $router->map('GET', '/listNews/[i:index]', 'App\Controllers\News\NewsController#executeList');
-$router->map('GET', '/news/[i:id]', 'App\Controllers\News\NewsController#executeShow');
+$router->map('GET', '/news/[i:idNews]', 'App\Controllers\News\NewsController#executeShow');
 $router->map('POST', '/insertComment/[i:idNews]', 'App\Controllers\Comments\CommentsController#executeInsert');
 $router->map('GET|POST', '/signIn', 'App\Controllers\Users\UsersController#executeSignIn');
 $router->map('GET|POST', '/signUp', 'App\Controllers\Users\UsersController#executeSignUp');
@@ -32,11 +32,16 @@ $match = $router->match();
 if ($match) {
     list($controller, $action) = explode('#', $match['target']);
 
-    if (is_callable([$controller, $action])) {
+    if (class_exists($controller)) {
         $controller = new $controller();
-        call_user_func_array([$controller, $action], $match['params']);
+
+        if (is_callable([$controller, $action])) {
+            call_user_func_array([$controller, $action], $match['params']);
+        } else {
+            throw new \Exception('Aucune action ne correspond à la route demandée!');
+        }
     } else {
-        throw new \Exception('Aucun controlleur ou action ne correspond à la route demandée!');
+        throw new \Exception('Aucun controlleur ne correspond à la route demandée!');
     }
 } else {
     $controller = new App\Controllers\PublicController();
